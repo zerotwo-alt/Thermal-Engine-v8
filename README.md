@@ -1,29 +1,50 @@
-7sgen2 thermal BY Zero two
+Thermal Engine v8.0 – Snapdragon 7s Gen 2
+By Zero two
 
-### Disclaimer
+Overview
+ Thermal Engine v8.0 is a custom-tuned thermal configuration designed for Snapdragon 7s Gen 2 devices running AOSP-based ROMs.
+ The goal is to achieve balanced performance, better thermal control, and improved charging behavior without unsafe or extreme limits. 
 
-This program is distributed in the hope that it will be useful
-I am not responsible for bricked devices, dead SD cards, corrupted partition, nuclear disasters
-No to upload on additionals clouds
+Features
 
-### Introduction
+ Improved overall temperature management
+ Optimized charging behavior
+ PUBG-specific thermal configuration
+ Reduced aggressive throttling
+ Custom performance-boost thermal profiles
+ Tuned for daily usage and gaming stability
+
+ Disclaimer
+
+ This project is provided as-is.
+ I am not responsible for:
+ Bricked devices
+ Data loss or corrupted partitions
+ Battery degradation
+ Any other damage caused by usage
+ Do not re-upload this project to additional cloud platforms without permission.
+ Use at your own risk.
 
 
-- Better temperature management 
-- Charge improved 
-- pubg config added
-- Increase some Values for Less Throotling 
-- Perf Boost Custom Config 
+Important Note
 
-Caution: Increasing the charge rate by pushing the throttling limits too far can damage the health of your battery.
+ Increasing charging speed or pushing thermal limits too aggressively can negatively affec battery health over time.
+ This module is tuned to remain fair, stable, and safe, avoiding extreme values.
 
-This module remains fair.
+Installation
 
-### Credits 
+ Flash via Magisk or KernelSU
+ Reboot your device
+ Enjoy balanced performance and thermals
 
-@Srehhhx
-@montfort_1607
-@hx817
-@agnannn
-@revokpm
-@lua
+
+Credits
+
+Special thanks to:
+
+• Srehhhx
+• montfort_1607
+• hx817
+• agnannn
+• revokpm
+• lua
