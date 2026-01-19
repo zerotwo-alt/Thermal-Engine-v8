@@ -1,0 +1,43 @@
+{
+  "title": "Kontrol Termal",
+  "offline": "Offline",
+  "online": "Online",
+
+  "dark_mode": "Mode Gelap",
+  "fast_charging": "Pengisian Cepat",
+  "video_banner": "Banner Video",
+
+  "android": "Android",
+  "kernel": "Kernel",
+
+  "level": "Level Baterai",
+  "status": "Status",
+  "voltage": "Tegangan",
+  "temperature": "Suhu",
+  "power": "Daya",
+  "charging_type": "Jenis Pengisian",
+  "full_in": "Penuh dalam",
+
+  "thermal_profile": "Profil Termal",
+
+  "performance": "💥 Performa",
+  "balanced": "⚡ Seimbang",
+  "battery": "🌿 Hemat Daya",
+
+  "cpu_status": "Status CPU",
+  "cpu_load": "Beban CPU",
+
+  "settings_title": "Pengaturan",
+  "settings_language": "Bahasa",
+
+  "banner_customize": "Sesuaikan Banner",
+  "banner_video": "Video Banner",
+  "select_video": "Pilih Video",
+  "download_folder": "Folder Unduhan",
+
+  "darkness": "Kegelapan",
+  "blur": "Blur",
+
+  "save_apply": "Simpan & Terapkan",
+  "video_not_supported": "Video tidak didukung di perangkat ini"
+}

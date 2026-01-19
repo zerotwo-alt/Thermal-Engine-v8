@@ -1,0 +1,43 @@
+{
+  "title": "Controle Térmico",
+  "offline": "Offline",
+  "online": "Online",
+
+  "dark_mode": "Modo Escuro",
+  "fast_charging": "Carregamento Rápido",
+  "video_banner": "Banner de Vídeo",
+
+  "android": "Android",
+  "kernel": "Kernel",
+
+  "level": "Nível da Bateria",
+  "status": "Status",
+  "voltage": "Voltagem",
+  "temperature": "Temperatura",
+  "power": "Potência",
+  "charging_type": "Tipo de Carregamento",
+  "full_in": "Completo em",
+
+  "thermal_profile": "Perfil Térmico",
+
+  "performance": "💥 Desempenho",
+  "balanced": "⚡ Balanceado",
+  "battery": "🌿 Economia",
+
+  "cpu_status": "Status da CPU",
+  "cpu_load": "Carga da CPU",
+
+  "settings_title": "Configurações",
+  "settings_language": "Idioma",
+
+  "banner_customize": "Personalizar Banner",
+  "banner_video": "Vídeo do Banner",
+  "select_video": "Selecionar Vídeo",
+  "download_folder": "Pasta de Download",
+
+  "darkness": "Escuridão",
+  "blur": "Desfoque",
+
+  "save_apply": "Salvar e Aplicar",
+  "video_not_supported": "Vídeo não suportado neste dispositivo"
+}

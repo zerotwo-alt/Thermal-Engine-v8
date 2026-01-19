@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <!-- Viewport / Safe Area -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" id="themeColor">
+
+  <title>Thermal Control</title>
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- ================= BANNER ================= -->
+<div class="banner" id="banner">
+
+  <!-- VIDEO -->
+  <video
+    id="bannerVideo"
+    muted
+    loop
+    playsinline
+    preload="auto"
+    style="display:none"
+  ></video>
+
+  <!-- IMAGE -->
+  <img
+    id="bannerImage"
+    src="assets/banner.webp"
+    draggable="false"
+  >
+
+  <div class="banner-text">
+    <h1 data-i18n="title">Thermal Control</h1>
+    <p>T-ENGINE</p>
+  </div>
+
+    <div class="status-badge offline" id="moduleStatus">
+      ● <span data-i18n="offline">Offline</span>
+    </div>
+
+    <!-- 🌐 Language -->
+    <button class="lang-btn" id="langBtn" type="button">🌐</button>
+
+    <!-- ✏ Banner edit -->
+    <button class="banner-edit-btn" id="btnOpenBannerModal" type="button">✏</button>
+
+    <!-- ===== LANGUAGE POPUP ===== -->
+    <div class="lang-popup hidden" id="langPopup">
+      <ul>
+        <li data-lang="en">🇬🇧 English</li>
+        <li data-lang="zh-han">🇨🇳 中文</li>
+        <li data-lang="hi">🇮🇳 हिंदी</li>
+        <li data-lang="ru">🇷🇺 Russia</li>
+        <li data-lang="jp">🇯🇵 Japan</li>
+        <li data-lang="kr">🇰🇷 korea</li>
+        <li data-lang="ar">🇸🇦 العربية</li>
+        <li data-lang="id">🇮🇩 Indonesia</li>
+        <li data-lang="vn">🇻🇳 Vietnam</li>
+        <li data-lang="es">🇪🇸 Español</li>
+        <li data-lang="pt-br">🇧🇷 Português</li>
+        <li data-lang="tr">🇹🇷 Türkçe</li>
+        <li data-lang="pl">🇵🇱 Polski</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- ================= MODULE INFO ================= -->
+  <div class="card module-info">
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">VERSION</span>
+        <span class="info-val" id="propVersion">--</span>
+      </div>
+
+      <div class="separator-vertical"></div>
+
+      <div class="info-item">
+        <span class="info-label">AUTHOR</span>
+        <span class="info-val" id="propAuthor">--</span>
+      </div>
+    </div>
+
+    <div class="desc-box">
+      <span class="item-desc" id="propDescFull" data-i18n="loading">
+        Loading…
+      </span>
+    </div>
+  </div>
+
+  <!-- ================= DARK MODE ================= -->
+  <div class="card row">
+    <h3 data-i18n="dark_mode">Dark Mode</h3>
+    <label class="switch">
+      <input type="checkbox" id="darkToggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+  
+ <!-- ================= VIDEO BANNER TOGGLE ================= -->
+ <div class="card row">
+   <h3 data-i18n="video_banner">Video Banner</h3>
+    <label class="switch">
+    <input type="checkbox" id="videoToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+   
+  <!-- ================= BATTERY ================= -->
+  <div class="card mono">
+    <div class="mono-row"><span data-i18n="level">Level</span><b id="batteryLevel">--%</b></div>
+    <div class="divider"></div>
+    <div class="mono-row"><span data-i18n="status">Status</span><b id="batteryStatus">--</b></div>
+    <div class="divider"></div>
+    <div class="mono-row"><span data-i18n="voltage">Voltage</span><b id="batteryVoltage">-- V</b></div>
+    <div class="divider"></div>
+    <div class="mono-row"><span data-i18n="temperature">Temperature</span><b id="batteryTemp">-- °C</b></div>
+    <div class="divider"></div>
+    <div class="mono-row"><span data-i18n="power">Power</span><b id="batteryPower">-- W</b></div>
+    <div class="divider"></div>
+    <div class="mono-row"><span data-i18n="charging_type">Charging type</span><b id="chargeType">--</b></div>
+    <div class="divider"></div>
+    <div class="mono-row"><span data-i18n="full_in">Full in</span><b id="batteryTime">--</b></div>
+  </div>
+
+  <!-- ================= THERMAL PROFILE ================= -->
+  <div class="card">
+    <h3 data-i18n="thermal_profile">Thermal Profile</h3>
+    <div class="profile-row">
+      <button class="profile-btn" data-profile="performance" data-i18n="performance">💥Performance</button>
+      <button class="profile-btn" data-profile="balanced" data-i18n="balanced">⚡Balanced</button>
+      <button class="profile-btn" data-profile="battery" data-i18n="battery">🌿Battery</button>
+    </div>
+  </div>
+   
+  <!-- ================= CPU STATUS ================= -->
+  <div class="card">
+    <h3 data-i18n="cpu_status">CPU Status</h3>
+    <div class="cpu-grid" id="cpuGrid"></div>
+    <canvas id="cpuGraph" height="80"></canvas>
+
+    <div class="footer-grid">
+      <span id="cpuTemp">CPU: -- °C</span>
+      <span id="gpuTemp">GPU: -- °C</span>
+    </div>
+
+    <div class="footer-grid">
+      <span id="cpuLoad">CPU load: --%</span>
+      <span id="gpuFreq">GPU: -- MHz</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= BANNER MODAL ================= -->
+<div class="modal-backdrop" id="modalBanner">
+  <div class="modal-card">
+
+    <div class="modal-header">
+      <span class="modal-title" data-i18n="banner_customize">Customize Banner</span>
+      <div class="close-icon" id="closeBanner">✕</div>
+    </div>
+
+    <div class="modal-body">
+
+      <div class="preview-container">
+        <img id="previewImage" src="assets/banner.webp">
+        <div id="previewOverlay"></div>
+        <div class="preview-badge" data-i18n="preview">PREVIEW</div>
+      </div>
+
+      <div class="control-header" data-i18n="download_folder">Download Folder</div>
+
+      <div class="banner-gallery-scroll" id="bannerGalleryArea">
+        <div style="padding:20px;text-align:center;" data-i18n="loading">
+          Loading…
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="control-header">
+          <span data-i18n="darkness">Darkness</span>
+          <span id="valDarkness">30%</span>
+        </div>
+        <input type="range" id="rangeDarkness" min="0" max="80" value="30" class="ios-range">
+      </div>
+
+      <div class="control-group">
+        <div class="control-header">
+          <span data-i18n="blur">Blur</span>
+          <span id="valBlur">0px</span>
+        </div>
+        <input type="range" id="rangeBlur" min="0" max="20" value="0" class="ios-range">
+      </div>
+
+      <button class="modal-footer-btn" id="btnSaveBanner" data-i18n="save_apply">
+        Save & Apply
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="js/module.js"></script>
+<script src="js/theme.js"></script>
+<script src="js/system.js"></script>
+<script src="js/stats.js"></script>
+<script src="js/profiles.js"></script>
+<script src="js/language.js"></script>
+<script src="js/banner.js"></script>
+<script src="js/video.js"></script>
+
+<script>
+/* =========================
+   BANNER LANGUAGE POPUP
+========================= */
+const langBtn = document.getElementById("langBtn");
+const langPopup = document.getElementById("langPopup");
+
+langBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  langPopup.classList.toggle("hidden");
+});
+
+langPopup.addEventListener("click", (e) => {
+  const li = e.target.closest("li");
+  if (!li) return;
+  applyLanguage(li.dataset.lang);
+  langPopup.classList.add("hidden");
+});
+
+document.addEventListener("click", () => {
+  langPopup.classList.add("hidden");
+});
+</script>
+
+</body>
+</html>

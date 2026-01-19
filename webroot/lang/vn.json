@@ -1,0 +1,43 @@
+{
+  "title": "Điều khiển nhiệt",
+  "offline": "Ngoại tuyến",
+  "online": "Trực tuyến",
+
+  "dark_mode": "Chế độ tối",
+  "fast_charging": "Sạc nhanh",
+  "video_banner": "Banner video",
+
+  "android": "Android",
+  "kernel": "Kernel",
+
+  "level": "Mức pin",
+  "status": "Trạng thái",
+  "voltage": "Điện áp",
+  "temperature": "Nhiệt độ",
+  "power": "Công suất",
+  "charging_type": "Loại sạc",
+  "full_in": "Đầy trong",
+
+  "thermal_profile": "Hồ sơ nhiệt",
+
+  "performance": "💥 Hiệu năng",
+  "balanced": "⚡ Cân bằng",
+  "battery": "🌿 Tiết kiệm pin",
+
+  "cpu_status": "Trạng thái CPU",
+  "cpu_load": "Tải CPU",
+
+  "settings_title": "Cài đặt",
+  "settings_language": "Ngôn ngữ",
+
+  "banner_customize": "Tùy chỉnh banner",
+  "banner_video": "Video banner",
+  "select_video": "Chọn video",
+  "download_folder": "Thư mục tải xuống",
+
+  "darkness": "Độ tối",
+  "blur": "Làm mờ",
+
+  "save_apply": "Lưu & áp dụng",
+  "video_not_supported": "Thiết bị không hỗ trợ video"
+}

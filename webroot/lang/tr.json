@@ -1,0 +1,43 @@
+{
+  "title": "Termal Kontrol",
+  "offline": "Çevrimdışı",
+  "online": "Çevrimiçi",
+
+  "dark_mode": "Karanlık Mod",
+  "fast_charging": "Hızlı Şarj",
+  "video_banner": "Video Afişi",
+
+  "android": "Android",
+  "kernel": "Çekirdek",
+
+  "level": "Pil Seviyesi",
+  "status": "Durum",
+  "voltage": "Voltaj",
+  "temperature": "Sıcaklık",
+  "power": "Güç",
+  "charging_type": "Şarj Türü",
+  "full_in": "Tam dolum",
+
+  "thermal_profile": "Termal Profil",
+
+  "performance": "💥 Performans",
+  "balanced": "⚡ Dengeli",
+  "battery": "🌿 Tasarruf",
+
+  "cpu_status": "CPU Durumu",
+  "cpu_load": "CPU Yükü",
+
+  "settings_title": "Ayarlar",
+  "settings_language": "Dil",
+
+  "banner_customize": "Afişi Özelleştir",
+  "banner_video": "Afiş Videosu",
+  "select_video": "Video Seç",
+  "download_folder": "İndirme Klasörü",
+
+  "darkness": "Karanlık",
+  "blur": "Bulanıklık",
+
+  "save_apply": "Kaydet ve Uygula",
+  "video_not_supported": "Bu cihazda video desteklenmiyor"
+}

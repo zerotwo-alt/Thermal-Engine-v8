@@ -1,0 +1,43 @@
+{
+  "title": "Kontrola termiczna",
+  "offline": "Offline",
+  "online": "Online",
+
+  "dark_mode": "Tryb ciemny",
+  "fast_charging": "Szybkie ładowanie",
+  "video_banner": "Baner wideo",
+
+  "android": "Android",
+  "kernel": "Jądro",
+
+  "level": "Poziom baterii",
+  "status": "Status",
+  "voltage": "Napięcie",
+  "temperature": "Temperatura",
+  "power": "Moc",
+  "charging_type": "Typ ładowania",
+  "full_in": "Pełne naładowanie za",
+
+  "thermal_profile": "Profil termiczny",
+
+  "performance": "💥 Wydajność",
+  "balanced": "⚡ Zrównoważony",
+  "battery": "🌿 Oszczędny",
+
+  "cpu_status": "Stan CPU",
+  "cpu_load": "Obciążenie CPU",
+
+  "settings_title": "Ustawienia",
+  "settings_language": "Język",
+
+  "banner_customize": "Dostosuj baner",
+  "banner_video": "Wideo banera",
+  "select_video": "Wybierz wideo",
+  "download_folder": "Folder pobierania",
+
+  "darkness": "Ciemność",
+  "blur": "Rozmycie",
+
+  "save_apply": "Zapisz i zastosuj",
+  "video_not_supported": "Wideo nie jest obsługiwane na tym urządzeniu"
+}

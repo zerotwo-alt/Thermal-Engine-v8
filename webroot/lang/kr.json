@@ -1,0 +1,43 @@
+{
+  "title": "열 제어",
+  "offline": "오프라인",
+  "online": "온라인",
+
+  "dark_mode": "다크 모드",
+  "fast_charging": "고속 충전",
+  "video_banner": "비디오 배너",
+
+  "android": "Android",
+  "kernel": "커널",
+
+  "level": "배터리 수준",
+  "status": "상태",
+  "voltage": "전압",
+  "temperature": "온도",
+  "power": "전력",
+  "charging_type": "충전 유형",
+  "full_in": "완충까지",
+
+  "thermal_profile": "열 프로필",
+
+  "performance": "💥 성능",
+  "balanced": "⚡ 균형",
+  "battery": "🌿 절전",
+
+  "cpu_status": "CPU 상태",
+  "cpu_load": "CPU 부하",
+
+  "settings_title": "설정",
+  "settings_language": "언어",
+
+  "banner_customize": "배너 사용자 지정",
+  "banner_video": "배너 비디오",
+  "select_video": "비디오 선택",
+  "download_folder": "다운로드 폴더",
+
+  "darkness": "어두움",
+  "blur": "블러",
+
+  "save_apply": "저장 및 적용",
+  "video_not_supported": "이 기기에서는 비디오를 지원하지 않습니다"
+}

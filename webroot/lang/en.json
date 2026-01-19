@@ -1,0 +1,43 @@
+{
+  "title": "Thermal Control",
+  "offline": "Offline",
+  "online": "Online",
+
+  "dark_mode": "Dark Mode",
+  "fast_charging": "Fast Charging",
+  "video_banner": "Video Banner",
+
+  "android": "Android",
+  "kernel": "Kernel",
+
+  "level": "Battery Level",
+  "status": "Status",
+  "voltage": "Voltage",
+  "temperature": "Temperature",
+  "power": "Power",
+  "charging_type": "Charging Type",
+  "full_in": "Full In",
+
+  "thermal_profile": "Thermal Profile",
+
+  "performance": "💥Performance",
+  "balanced": "⚡Balanced",
+  "battery": "🌿Battery",
+
+  "cpu_status": "CPU Status",
+  "cpu_load": "CPU Load",
+
+  "settings_title": "Settings",
+  "settings_language": "Language",
+
+  "banner_customize": "Customize Banner",
+  "banner_video": "Banner Video",
+  "select_video": "Select Video",
+  "download_folder": "Download Folder",
+
+  "darkness": "Darkness",
+  "blur": "Blur",
+
+  "save_apply": "Save & Apply",
+  "video_not_supported": "Video is not supported on this device"
+}
