@@ -58,9 +58,10 @@ This module is tuned to remain **fair, stable, and safe**, avoiding extreme valu
 
 Special thanks to:
 
+- lua
 - Srehhhx
 - montfort_1607
 - hx817
 - agnannn
 - revokpm
-- lua
+- Soorya!! Miatoll
