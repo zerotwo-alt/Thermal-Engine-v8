@@ -1,3 +1,5 @@
+[thermal](https://raw.githubusercontent.com/zerotwo-alt/Thermal-Engine-v8/main/banner.jpg) 
+
 # Thermal Engine v8.0 – Snapdragon 7s Gen 2
 **By Zero two**
 
