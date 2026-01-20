@@ -8,85 +8,32 @@ const PROFILES = {
     sconfig: "16",
     boost: "30",
     balance: "0",
-
-    // ALL cores use walt governor in performance mode
-    cpu0_gov: "walt",       // A55 small core 0
-    cpu1_gov: "walt",       // A55 small core 1
-    cpu2_gov: "walt",       // A55 small core 2
-    cpu3_gov: "walt",       // A55 small core 3
-    cpu4_gov: "walt",       // A78 big core 4
-    cpu5_gov: "walt",       // A78 big core 5
-    cpu6_gov: "walt",       // A78 big core 6
-    cpu7_gov: "walt",       // A78 big core 7
-    
-    // Frequency settings for all cores
-    cpu0_max: "1996800",    // A55 core 0 max freq 1.996GHz
-    cpu1_max: "1996800",    // A55 core 1 max freq 1.996GHz
-    cpu2_max: "1996800",    // A55 core 2 max freq 1.996GHz
-    cpu3_max: "1996800",    // A55 core 3 max freq 1.996GHz
-    cpu4_max: "2400000",    // A78 core 4 max freq 2.4GHz
-    cpu5_max: "2400000",    // A78 core 5 max freq 2.4GHz
-    cpu6_max: "2400000",    // A78 core 6 max freq 2.4GHz
-    cpu7_max: "2400000",    // A78 core 7 max freq 2.4GHz
-
+    cpu0_gov: "walt", cpu1_gov: "walt", cpu2_gov: "walt", cpu3_gov: "walt",
+    cpu4_gov: "walt", cpu5_gov: "walt", cpu6_gov: "walt", cpu7_gov: "walt",
+    cpu0_max: "1996800", cpu1_max: "1996800", cpu2_max: "1996800", cpu3_max: "1996800",
+    cpu4_max: "2400000", cpu5_max: "2400000", cpu6_max: "2400000", cpu7_max: "2400000",
     gpu_gov: "msm-adreno-tz",
     gpu_max: "940000000"
   },
-
   balanced: {
     sconfig: "9",
     boost: "2",
     balance: "0",
-
-    // All cores use schedutil
-    cpu0_gov: "schedutil",  // A55 small core 0
-    cpu1_gov: "schedutil",  // A55 small core 1
-    cpu2_gov: "schedutil",  // A55 small core 2
-    cpu3_gov: "schedutil",  // A55 small core 3
-    cpu4_gov: "schedutil",  // A78 big core 4
-    cpu5_gov: "schedutil",  // A78 big core 5
-    cpu6_gov: "schedutil",  // A78 big core 6
-    cpu7_gov: "schedutil",  // A78 big core 7
-
-    // Frequency settings for all cores
-    cpu0_max: "1593600",    // A55 core 0 limited to 1.593GHz
-    cpu1_max: "1593600",    // A55 core 1 limited to 1.593GHz
-    cpu2_max: "1593600",    // A55 core 2 limited to 1.593GHz
-    cpu3_max: "1593600",    // A55 core 3 limited to 1.593GHz
-    cpu4_max: "1996800",    // A78 core 4 limited to 1.996GHz
-    cpu5_max: "1996800",    // A78 core 5 limited to 1.996GHz
-    cpu6_max: "1996800",    // A78 core 6 limited to 1.996GHz
-    cpu7_max: "1996800",    // A78 core 7 limited to 1.996GHz
-
+    cpu0_gov: "schedutil", cpu1_gov: "schedutil", cpu2_gov: "schedutil", cpu3_gov: "schedutil",
+    cpu4_gov: "schedutil", cpu5_gov: "schedutil", cpu6_gov: "schedutil", cpu7_gov: "schedutil",
+    cpu0_max: "1593600", cpu1_max: "1593600", cpu2_max: "1593600", cpu3_max: "1593600",
+    cpu4_max: "1996800", cpu5_max: "1996800", cpu6_max: "1996800", cpu7_max: "1996800",
     gpu_gov: "msm-adreno-tz",
     gpu_max: "710000000"
   },
-
   battery: {
     sconfig: "0",
     boost: "0",
     balance: "0",
-
-    // All cores use powersave governor
-    cpu0_gov: "powersave",  // A55 small core 0
-    cpu1_gov: "powersave",  // A55 small core 1
-    cpu2_gov: "powersave",  // A55 small core 2
-    cpu3_gov: "powersave",  // A55 small core 3
-    cpu4_gov: "powersave",  // A78 big core 4
-    cpu5_gov: "powersave",  // A78 big core 5
-    cpu6_gov: "powersave",  // A78 big core 6
-    cpu7_gov: "powersave",  // A78 big core 7
-    
-    // Frequency settings for all cores
-    cpu0_max: "1190400",    // A55 core 0 limited to 1.190GHz
-    cpu1_max: "1190400",    // A55 core 1 limited to 1.190GHz
-    cpu2_max: "1190400",    // A55 core 2 limited to 1.190GHz
-    cpu3_max: "1190400",    // A55 core 3 limited to 1.190GHz
-    cpu4_max: "1497600",    // A78 core 4 limited to 1.497GHz
-    cpu5_max: "1497600",    // A78 core 5 limited to 1.497GHz
-    cpu6_max: "1497600",    // A78 core 6 limited to 1.497GHz
-    cpu7_max: "1497600",    // A78 core 7 limited to 1.497GHz
-
+    cpu0_gov: "powersave", cpu1_gov: "powersave", cpu2_gov: "powersave", cpu3_gov: "powersave",
+    cpu4_gov: "powersave", cpu5_gov: "powersave", cpu6_gov: "powersave", cpu7_gov: "powersave",
+    cpu0_max: "1190400", cpu1_max: "1190400", cpu2_max: "1190400", cpu3_max: "1190400",
+    cpu4_max: "1497600", cpu5_max: "1497600", cpu6_max: "1497600", cpu7_max: "1497600",
     gpu_gov: "msm-adreno-tz",
     gpu_max: "430000000"
   }
@@ -104,71 +51,210 @@ document.addEventListener("DOMContentLoaded", () => {
     row.prepend(indicator);
   }
 
-  async function write(path, value) {
-    try { await exec(`[ -e ${path} ] && echo ${value} > ${path}`); } catch {}
+  // ========== OPTIMIZED WRITE FUNCTIONS ==========
+  
+  // Cache for path existence
+  const pathCache = new Map();
+  
+  // Fast parallel write without checking existence every time
+  async function fastWrite(path, value) {
+    return new Promise((resolve) => {
+      // Fire and forget - don't wait for result
+      exec(`echo ${value} > ${path} 2>/dev/null`)
+        .then(() => resolve(true))
+        .catch(() => resolve(false));
+    });
+  }
+  
+  // Batch write multiple paths at once
+  async function batchWrite(writeOperations) {
+    const promises = writeOperations.map(([path, value]) => fastWrite(path, value));
+    return Promise.all(promises);
+  }
+
+  // ========== OPTIMIZED PROFILE FUNCTIONS ==========
+  
+  async function readCurrentProfile() {
+    try {
+      const result = await exec(`cat /data/adb/modules/thermal/profile.conf 2>/dev/null || echo "balanced"`);
+      const profile = result.trim().toLowerCase();
+      return PROFILES[profile] ? profile : "balanced";
+    } catch (e) {
+      return "balanced";
+    }
   }
 
   async function persist(profile) {
-    try { await exec(`echo ${profile} > /data/adb/modules/thermal/profile.conf`); } catch {}
+    try {
+      // Single exec to do everything
+      await exec(`echo '${profile}' > /data/adb/modules/thermal/profile.conf && chmod 644 /data/adb/modules/thermal/profile.conf 2>/dev/null && echo ${Date.now()} > /data/adb/modules/thermal/.js_sync`);
+      localStorage.setItem(PROFILE_KEY, profile);
+      return true;
+    } catch (e) {
+      console.error("Error persisting profile:", e.message);
+      return false;
+    }
   }
 
   function setActive(profile) {
     const idx = PROFILE_ORDER.indexOf(profile);
     buttons.forEach(b => b.classList.toggle("active", b.dataset.profile === profile));
     indicator.style.transform = `translateX(${idx * 100}%)`;
-    localStorage.setItem(PROFILE_KEY, profile);
+    
+    // Visual feedback
+    buttons.forEach(btn => {
+      if (btn.dataset.profile === profile) {
+        btn.style.opacity = "1";
+        btn.style.fontWeight = "bold";
+      } else {
+        btn.style.opacity = "0.7";
+        btn.style.fontWeight = "normal";
+      }
+    });
   }
 
   let applying = false;
+  let lastApplied = "";
 
   async function applyProfile(profile) {
-    if (applying) return;
+    // Prevent duplicate rapid clicks
+    if (applying || lastApplied === profile) return;
+    
     applying = true;
-
-    const p = PROFILES[profile];
-    if (!p) return applying = false;
-
-    // Apply thermal settings
-    await write("/sys/class/thermal/thermal_message/sconfig", p.sconfig);
-    await write("/sys/class/thermal/thermal_message/boost", p.boost);
-    await write("/sys/class/thermal/thermal_message/balance_mode", p.balance);
-
-    // Apply CPU governor settings for ALL cores
-    await write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", p.cpu0_gov);
-    await write("/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor", p.cpu1_gov);
-    await write("/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor", p.cpu2_gov);
-    await write("/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor", p.cpu3_gov);
-    await write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_governor", p.cpu4_gov);
-    await write("/sys/devices/system/cpu/cpu5/cpufreq/scaling_governor", p.cpu5_gov);
-    await write("/sys/devices/system/cpu/cpu6/cpufreq/scaling_governor", p.cpu6_gov);
-    await write("/sys/devices/system/cpu/cpu7/cpufreq/scaling_governor", p.cpu7_gov);
-
-    // Apply CPU frequency settings for ALL cores
-    await write("/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq", p.cpu0_max);
-    await write("/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq", p.cpu1_max);
-    await write("/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq", p.cpu2_max);
-    await write("/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq", p.cpu3_max);
-    await write("/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq", p.cpu4_max);
-    await write("/sys/devices/system/cpu/cpu5/cpufreq/scaling_max_freq", p.cpu5_max);
-    await write("/sys/devices/system/cpu/cpu6/cpufreq/scaling_max_freq", p.cpu6_max);
-    await write("/sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq", p.cpu7_max);
-
-    // Apply GPU settings
-    await write("/sys/class/kgsl/kgsl-3d0/devfreq/governor", p.gpu_gov);
-    await write("/sys/class/kgsl/kgsl-3d0/max_freq", p.gpu_max);
-
-    // Persist the profile
-    await persist(profile);
+    lastApplied = profile;
+    
+    // IMMEDIATE UI FEEDBACK (no waiting for writes)
     setActive(profile);
+    
+    const p = PROFILES[profile];
+    if (!p) {
+      applying = false;
+      return;
+    }
 
-    applying = false;
+    console.log(`Applying profile: ${profile} (fast)`);
+    
+    try {
+      // Create ALL write operations at once
+      const writeOperations = [
+        // Thermal settings
+        ["/sys/class/thermal/thermal_message/sconfig", p.sconfig],
+        ["/sys/class/thermal/thermal_message/boost", p.boost],
+        ["/sys/class/thermal/thermal_message/balance_mode", p.balance],
+        
+        // CPU governors
+        ["/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor", p.cpu0_gov],
+        ["/sys/devices/system/cpu/cpu1/cpufreq/scaling_governor", p.cpu1_gov],
+        ["/sys/devices/system/cpu/cpu2/cpufreq/scaling_governor", p.cpu2_gov],
+        ["/sys/devices/system/cpu/cpu3/cpufreq/scaling_governor", p.cpu3_gov],
+        ["/sys/devices/system/cpu/cpu4/cpufreq/scaling_governor", p.cpu4_gov],
+        ["/sys/devices/system/cpu/cpu5/cpufreq/scaling_governor", p.cpu5_gov],
+        ["/sys/devices/system/cpu/cpu6/cpufreq/scaling_governor", p.cpu6_gov],
+        ["/sys/devices/system/cpu/cpu7/cpufreq/scaling_governor", p.cpu7_gov],
+        
+        // CPU frequencies
+        ["/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq", p.cpu0_max],
+        ["/sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq", p.cpu1_max],
+        ["/sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq", p.cpu2_max],
+        ["/sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq", p.cpu3_max],
+        ["/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq", p.cpu4_max],
+        ["/sys/devices/system/cpu/cpu5/cpufreq/scaling_max_freq", p.cpu5_max],
+        ["/sys/devices/system/cpu/cpu6/cpufreq/scaling_max_freq", p.cpu6_max],
+        ["/sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq", p.cpu7_max],
+        
+        // GPU settings
+        ["/sys/class/kgsl/kgsl-3d0/devfreq/governor", p.gpu_gov],
+        ["/sys/class/kgsl/kgsl-3d0/max_freq", p.gpu_max]
+      ];
+      
+      // Execute ALL writes in parallel
+      const results = await batchWrite(writeOperations);
+      
+      // Count successes
+      const successCount = results.filter(r => r).length;
+      console.log(`Fast applied: ${successCount}/${writeOperations.length} settings`);
+      
+      // Persist in background (don't wait)
+      persist(profile).catch(e => console.error("Persist failed:", e));
+      
+    } catch (error) {
+      console.error("Error applying profile:", error);
+    }
+    
+    // Small delay before allowing another change
+    setTimeout(() => {
+      applying = false;
+    }, 300);
   }
 
-  // Add click event listeners to buttons
-  buttons.forEach(btn =>
-    btn.addEventListener("click", () => applyProfile(btn.dataset.profile))
-  );
+  // ========== EVENT LISTENERS ==========
+  
+  // Add click event listeners
+  buttons.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      applyProfile(btn.dataset.profile);
+    });
+    
+    // Add hover effect
+    btn.addEventListener("mouseenter", () => {
+      if (!btn.classList.contains("active")) {
+        btn.style.transform = "scale(1.05)";
+      }
+    });
+    
+    btn.addEventListener("mouseleave", () => {
+      btn.style.transform = "scale(1)";
+    });
+  });
 
-  // Apply initial profile after delay
-  setTimeout(() => applyProfile(localStorage.getItem(PROFILE_KEY) || "balanced"), 120);
+  // ========== INITIALIZATION ==========
+  
+  async function initialize() {
+    // Immediate UI setup
+    const savedProfile = localStorage.getItem(PROFILE_KEY) || "balanced";
+    setActive(savedProfile);
+    
+    // Apply saved profile after short delay
+    setTimeout(async () => {
+      try {
+        const fileProfile = await readCurrentProfile();
+        
+        // If file differs from localStorage, use file
+        if (fileProfile !== savedProfile) {
+          console.log(`File differs: localStorage=${savedProfile}, file=${fileProfile}`);
+          localStorage.setItem(PROFILE_KEY, fileProfile);
+          setActive(fileProfile);
+          
+          // Apply the file profile
+          setTimeout(() => applyProfile(fileProfile), 100);
+        } else {
+          // Apply saved profile
+          setTimeout(() => applyProfile(savedProfile), 100);
+        }
+      } catch (e) {
+        console.error("Init error:", e);
+        setTimeout(() => applyProfile("balanced"), 100);
+      }
+    }, 200);
+    
+    // Quick sync check every 5 seconds
+    setInterval(async () => {
+      try {
+        const fileProfile = await readCurrentProfile();
+        const uiProfile = localStorage.getItem(PROFILE_KEY) || "balanced";
+        
+        if (fileProfile !== uiProfile && !applying) {
+          console.log(`Auto-sync: UI=${uiProfile} -> File=${fileProfile}`);
+          localStorage.setItem(PROFILE_KEY, fileProfile);
+          setActive(fileProfile);
+        }
+      } catch (e) {
+        // Silent fail
+      }
+    }, 5000);
+  }
+
+  // Start initialization
+  initialize();
 });
