@@ -1,4 +1,4 @@
-![thermal](https://raw.githubusercontent.com/zerotwo-alt/Thermal-Engine-v8/main/banner.jpeg) 
+![thermal](https://raw.githubusercontent.com/zerotwo-alt/Thermal-Engine-v8/main/banner.jpeg)
 
 # T-Engine For Snapdragon® 7s Gen 2
 
@@ -8,9 +8,11 @@
 
 ## Overview
 
-Thermal Engine v8.0 is a custom-tuned thermal configuration designed for **Snapdragon 7s Gen 2** devices running **AOSP-based ROMs**.
+Thermal Engine v8.0 is a custom-tuned thermal configuration designed for  
+**Snapdragon® 7s Gen 2** devices running **AOSP-based ROMs**.
 
-The goal is to achieve **balanced performance**, **better thermal control**, and **improved charging behavior** without unsafe or extreme limits.
+The goal is to deliver **balanced performance**, **better thermal control**,  
+and **optimized charging behavior** without unsafe or extreme limits.
 
 ---
 
@@ -41,34 +43,36 @@ Use at your own risk.
 
 ---
 
-## 🖼 Screenshots 
+## 🖼 Screenshots
 
 ### 🌐 WebUI Interface
+
 <div align="center">
   <table>
     <tr>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233857_WebUI X.png" width="300" alt="WebUI Settings Panel">
+        <img src="screenshots/Screenshot_20260121-233857-WebUI_X.png" width="300" alt="WebUI Settings Panel">
         <br><em>Settings Panel</em>
       </td>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233904_WebUI X.png" width="300" alt="Add New App or Game">
-        <br><em>Add New App / Game</em>
+        <img src="screenshots/Screenshot_20260121-233904_WebUI_X.png" width="300" alt="WebUI Settings Panel">
+        <br><em>Settings Panel</em>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233908_WebUI X.png" width="300" alt="Device Profiles">
-        <br><em>Device Profiles</em>
+        <img src="screenshots/Screenshot_20260121-233908_WebUI_X.png" width="300" alt="WebUI Settings Panel">
+        <br><em>Settings Panel</em>
       </td>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233924_WebUI X.png" width="300" alt="Game List">
-        <br><em>Game List</em>
+        <img src="screenshots/Screenshot_20260121-233924_WebUI_X.png" width="300" alt="WebUI Settings Panel">
+        <br><em>Settings Panel</em>
       </td>
     </tr>
   </table>
 </div>
 
+All screenshots above represent the **WebUI settings panel**.
 ---
 
 ## Installation
@@ -83,12 +87,12 @@ Use at your own risk.
 
 Special thanks to:
 
-- lua
-- Srehhhx
-- montfort_1607
-- hx817
-- agnannn
-- revokpm
-- Soorya!! Miatoll
-- flying jellyfish
+- lua  
+- Srehhhx  
+- montfort_1607  
+- hx817  
+- agnannn  
+- revokpm  
+- Soorya!! Miatoll  
+- flying jellyfish  
 - lovebabu1122
