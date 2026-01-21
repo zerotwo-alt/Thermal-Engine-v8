@@ -51,21 +51,21 @@ Use at your own risk.
   <table>
     <tr>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233857-WebUI_X.png" width="300" alt="WebUI Settings Panel">
+        <img src="screenshots/Screenshot_20260121-233857-WebUI%20X.png" width="300" alt="WebUI Settings Panel">
         <br><em>Settings Panel</em>
       </td>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233904_WebUI_X.png" width="300" alt="WebUI Settings Panel">
+        <img src="screenshots/Screenshot_20260121-233904_WebUI%20X.png" width="300" alt="WebUI Settings Panel">
         <br><em>Settings Panel</em>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233908_WebUI_X.png" width="300" alt="WebUI Settings Panel">
+        <img src="screenshots/Screenshot_20260121-233908_WebUI%20X.png" width="300" alt="WebUI Settings Panel">
         <br><em>Settings Panel</em>
       </td>
       <td align="center">
-        <img src="screenshots/Screenshot_20260121-233924_WebUI_X.png" width="300" alt="WebUI Settings Panel">
+        <img src="screenshots/Screenshot_20260121-233924_WebUI%20X.png" width="300" alt="WebUI Settings Panel">
         <br><em>Settings Panel</em>
       </td>
     </tr>
