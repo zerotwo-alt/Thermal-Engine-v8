@@ -41,11 +41,33 @@ Use at your own risk.
 
 ---
 
-## Important Note
+## 🖼 Screenshots 
 
-Increasing charging speed or pushing thermal limits too aggressively can negatively affect battery health over time.
-
-This module is tuned to remain **fair, stable, and safe**, avoiding extreme values.
+### 🌐 WebUI Interface
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="screenshots/Screenshot_20260121-233857_WebUI X.png" width="300" alt="WebUI Settings Panel">
+        <br><em>Settings Panel</em>
+      </td>
+      <td align="center">
+        <img src="screenshots/Screenshot_20260121-233904_WebUI X.png" width="300" alt="Add New App or Game">
+        <br><em>Add New App / Game</em>
+      </td>
+    </tr>
+    <tr>
+      <td align="center">
+        <img src="screenshots/Screenshot_20260121-233908_WebUI X.png" width="300" alt="Device Profiles">
+        <br><em>Device Profiles</em>
+      </td>
+      <td align="center">
+        <img src="screenshots/Screenshot_20260121-233924_WebUI X.png" width="300" alt="Game List">
+        <br><em>Game List</em>
+      </td>
+    </tr>
+  </table>
+</div>
 
 ---
 
