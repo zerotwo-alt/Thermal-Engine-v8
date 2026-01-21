@@ -72,11 +72,10 @@ function applyToMainBanner() {
     ov.style.left = "0";
     ov.style.width = "100%";
     ov.style.height = "100%";
-    ov.style.zIndex = "2";
     img.parentNode.appendChild(ov);
   }
 
-  // Ensure container has proper styling
+  // Ensure parent container has proper styling
   const container = img.parentNode;
   if (container && container.style) {
     container.style.position = "relative";
@@ -93,7 +92,6 @@ function applyToMainBanner() {
     // Check if video element exists
     let video = document.getElementById("bannerVideo");
     if (!video) {
-      console.log("Creating video element");
       video = document.createElement("video");
       video.id = "bannerVideo";
       video.className = "banner-media";
@@ -108,39 +106,49 @@ function applyToMainBanner() {
       video.style.position = "absolute";
       video.style.top = "0";
       video.style.left = "0";
-      video.style.zIndex = "1";
-      video.style.backgroundColor = "#000";
-      
-      // Insert before overlay
-      if (ov.parentNode) {
-        ov.parentNode.insertBefore(video, ov);
-      }
+      img.parentNode.appendChild(video);
       
       // Add error handling
-      video.addEventListener('error', (e) => {
-        console.error("Video error:", video.error);
-        // Fallback to image
+      video.addEventListener('error', function(e) {
+        console.error('Video error:', video.error);
+        
+        // Fallback to image if video fails to load
+        showToast("Video failed to load, switching to image");
         bannerConfig.type = "image";
+        
+        // Update video toggle if it exists
+        const videoToggle = document.getElementById("videoToggle");
+        if (videoToggle) videoToggle.checked = false;
+        
         saveConfig();
-        setTimeout(applyToMainBanner, 1000);
+        applyToMainBanner();
       });
     }
     
     // Show video
     video.style.display = "block";
-    video.src = `assets/banner.mp4?t=${Date.now()}`;
+    const videoUrl = `assets/banner.mp4?t=${Date.now()}`;
     
-    // Try to play
+    // Only change source if it's different
+    if (!video.src || video.src.indexOf('banner.mp4') === -1) {
+      video.src = videoUrl;
+      video.load();
+    }
+    
+    // No blur for video
+    video.style.filter = "none";
+    
+    // Try to play with retry logic
     const playVideo = () => {
       video.play()
         .then(() => {
           console.log("Video playing");
         })
-        .catch(e => {
-          console.log("Play failed:", e.name);
-          if (e.name === 'NotAllowedError') {
-            // Add play button
-            addVideoPlayButton(video);
+        .catch(error => {
+          console.log("Play failed:", error.name);
+          if (error.name === 'NotAllowedError') {
+            // Autoplay blocked - show play button
+            showVideoPlayButton(video);
           }
         });
     };
@@ -148,6 +156,12 @@ function applyToMainBanner() {
     // Try to play when ready
     video.addEventListener('canplay', playVideo);
     setTimeout(playVideo, 1000);
+    
+    // Update video toggle to match
+    const videoToggle = document.getElementById("videoToggle");
+    if (videoToggle) {
+      videoToggle.checked = true;
+    }
     
   } else {
     // Image mode
@@ -158,15 +172,19 @@ function applyToMainBanner() {
     if (video) {
       video.style.display = "none";
       video.pause();
+      video.currentTime = 0;
     }
     
-    // Show image with blur
+    // Show image
     img.style.display = "block";
-    img.style.position = "absolute";
-    img.style.zIndex = "1";
     img.src = `assets/banner.webp?t=${Date.now()}`;
     img.style.filter = `blur(${bannerConfig.blur}px)`;
-    console.log("Main banner blur applied:", bannerConfig.blur + "px");
+    
+    // Update video toggle to match
+    const videoToggle = document.getElementById("videoToggle");
+    if (videoToggle) {
+      videoToggle.checked = false;
+    }
   }
   
   // Apply darkness to overlay
@@ -174,13 +192,13 @@ function applyToMainBanner() {
 }
 
 /* ================= VIDEO PLAY BUTTON ================= */
-function addVideoPlayButton(video) {
+function showVideoPlayButton(video) {
   const existing = document.getElementById('videoPlayBtn');
   if (existing) existing.remove();
   
   const btn = document.createElement("div");
   btn.id = "videoPlayBtn";
-  btn.innerHTML = "▶ PLAY";
+  btn.innerHTML = "▶ TAP TO PLAY";
   btn.style.cssText = `
     position: absolute;
     top: 50%;
@@ -192,9 +210,8 @@ function addVideoPlayButton(video) {
     border-radius: 8px;
     cursor: pointer;
     z-index: 10;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
-    border: 2px solid white;
   `;
   
   btn.onclick = () => {
@@ -216,7 +233,42 @@ function addVideoPlayButton(video) {
   }
 }
 
-/* ================= SAVE CONFIG ================= */
+/* ================= UPDATE SAVE FUNCTION ================= */
+// In your saveBtn.onclick function, update video toggle after saving:
+saveBtn.onclick = async () => {
+  // ... existing save code ...
+  
+  try {
+    // ... file saving logic ...
+    
+    // Update config
+    bannerConfig.darkness = parseInt(rD.value);
+    bannerConfig.blur = parseInt(rB.value);
+    bannerConfig.type = finalSaveType ? "video" : "image";
+    
+    // Save config
+    const configStr = JSON.stringify(bannerConfig, null, 2);
+    const escapedConfig = configStr.replace(/'/g, "'\"'\"'");
+    await exec(`echo '${escapedConfig}' > "${CONFIG}" 2>/dev/null`);
+    
+    // Update main banner
+    applyToMainBanner();
+    
+    // Update video toggle to match
+    const videoToggle = document.getElementById("videoToggle");
+    if (videoToggle) {
+      videoToggle.checked = finalSaveType;
+    }
+    
+    // Show success
+    showToast(`✅ ${finalSaveType ? "Video" : "Image"} saved successfully!`);
+    
+  } catch (error) {
+    // ... error handling ...
+  }
+};
+
+/* ================= ADDITIONAL HELPER FUNCTION ================= */
 async function saveConfig() {
   try {
     const configStr = JSON.stringify(bannerConfig, null, 2);
@@ -270,7 +322,6 @@ async function setupBannerMenu() {
     pImg.style.display = "block";
   }
   
-  // Set initial values
   rD.value = bannerConfig.darkness;
   rB.value = bannerConfig.blur;
   updatePreview();
@@ -284,13 +335,11 @@ async function setupBannerMenu() {
     typeLabel.textContent = isVideo ? "Video" : "Image";
     typeLabel.style.color = isVideo ? "#2196F3" : "#4CAF50";
     
-    // Show/hide blur control
     const blurControl = document.querySelector('.control-group[data-control="blur"]');
     if (blurControl) {
       blurControl.style.display = isVideo ? 'none' : 'block';
     }
     
-    // Show/hide preview media
     if (pImg && pVideo) {
       if (isVideo) {
         pImg.style.display = "none";
@@ -300,9 +349,6 @@ async function setupBannerMenu() {
         pVideo.style.display = "none";
       }
     }
-    
-    // IMPORTANT: Update preview blur when mode changes
-    updatePreview();
   }
 
   if (typeToggle && typeLabel) {
@@ -311,6 +357,7 @@ async function setupBannerMenu() {
     
     typeToggle.onchange = function() {
       updateTypeDisplay();
+      updatePreview();
     };
   }
 
@@ -363,6 +410,7 @@ async function setupBannerMenu() {
         if (pVideo) {
           pVideo.src = `assets/banner.mp4?t=${Date.now()}`;
           pVideo.load();
+          pVideo.play().catch(e => console.log("Preview video play error:", e));
         }
       } else {
         if (pImg) {
@@ -373,37 +421,19 @@ async function setupBannerMenu() {
   }
 
   function updatePreview() {
-    console.log("Updating preview:", {
-      darkness: rD.value,
-      blur: rB.value,
-      isVideo: typeToggle ? typeToggle.checked : false
-    });
-    
     vD.textContent = `${rD.value}%`;
     vB.textContent = `${rB.value}px`;
     
-    // Update preview overlay darkness
     if (pOv) {
       pOv.style.background = `rgba(0,0,0,${rD.value / 100})`;
     }
     
-    // Update preview image blur - FIXED
     if (pImg) {
-      const isImageMode = typeToggle ? !typeToggle.checked : true;
-      
-      if (isImageMode) {
-        // Apply blur for image mode
-        pImg.style.filter = `blur(${rB.value}px)`;
-        console.log("Preview blur applied:", rB.value + "px");
-      } else {
-        // No blur for video mode
-        pImg.style.filter = 'none';
-      }
+      pImg.style.filter = `blur(${rB.value}px)`;
     }
     
-    // Update preview video (no blur)
     if (pVideo) {
-      pVideo.style.filter = 'none';
+      pVideo.style.filter = `blur(${rB.value}px)`;
     }
   }
 
@@ -495,10 +525,11 @@ async function setupBannerMenu() {
       selectedBannerPath = filePath;
       selectedIsVideo = mediaType === "video";
       
-      // Auto-switch type toggle
-      if (typeToggle && typeToggle.checked !== selectedIsVideo) {
-        typeToggle.checked = selectedIsVideo;
-        updateTypeDisplay();
+      // Show hint about mode switching
+      const currentModeIsVideo = typeToggle ? typeToggle.checked : false;
+      if (selectedIsVideo !== currentModeIsVideo && filePath !== "current") {
+        const modeToSwitch = selectedIsVideo ? "Video" : "Image";
+        showToast(`Selected ${selectedIsVideo ? "video" : "image"} file. Will save as ${modeToSwitch} mode.`, 2000);
       }
       
       await loadPreview(filePath, mediaType, isCurrent);
@@ -544,8 +575,6 @@ async function setupBannerMenu() {
           pVideo.play().catch(e => console.log("Video autoplay blocked:", e));
         } else if (pImg) {
           pImg.src = `assets/${tempName}?t=${Date.now()}`;
-          // Apply current blur to new preview image
-          pImg.style.filter = `blur(${rB.value}px)`;
         }
       }
     } catch (e) {
@@ -597,7 +626,7 @@ async function setupBannerMenu() {
     }
   }
 
-  /* ---------- SAVE FUNCTION ---------- */
+  /* =========== SAVE FUNCTION (WITH AUTO-MODE SWITCHING) =========== */
   saveBtn.onclick = async () => {
     if (busy) return;
     busy = true;
@@ -607,52 +636,107 @@ async function setupBannerMenu() {
     saveBtn.disabled = true;
     
     try {
-      const saveAsVideo = typeToggle ? typeToggle.checked : false;
+      // Get current toggle state
+      const currentToggleIsVideo = typeToggle ? typeToggle.checked : false;
+      console.log("SAVE ACTION:");
+      console.log("- Type toggle:", currentToggleIsVideo ? "VIDEO" : "IMAGE");
+      console.log("- Selected file:", selectedBannerPath);
+      console.log("- Selected is video file:", selectedIsVideo);
       
       // Define file paths
       const imageFile = `${ASSETS_DIR}/banner.webp`;
       const videoFile = `${ASSETS_DIR}/banner.mp4`;
       
-      // Determine final save type
-      let finalSaveType = saveAsVideo;
+      // AUTO-DETECT FILE TYPE AND SWITCH MODE IF NEEDED
+      let finalSaveType = currentToggleIsVideo;
+      let switchedMode = false;
       
       if (selectedBannerPath !== "current") {
         const fileName = selectedBannerPath.toLowerCase();
-        const isVideoFile = /\.(mp4|webm|mkv|avi|mov)$/i.test(fileName);
-        const isImageFile = /\.(jpg|jpeg|png|webp|gif)$/i.test(fileName);
+        const isVideoFile = /\.(mp4|webm|mkv|avi|mov|flv|wmv|m4v|3gp|ogv)$/i.test(fileName);
+        const isImageFile = /\.(jpg|jpeg|png|webp|gif|bmp|tiff|svg)$/i.test(fileName);
         
-        if (isVideoFile && !saveAsVideo) {
+        if (isVideoFile && !currentToggleIsVideo) {
+          // User selected a video but Image mode is ON - switch to Video mode
+          console.log("Auto-switching to Video mode (selected video file)");
           finalSaveType = true;
+          switchedMode = true;
           if (typeToggle) {
             typeToggle.checked = true;
             updateTypeDisplay();
           }
-          showToast("Auto-switched to Video mode");
-        } else if (isImageFile && saveAsVideo) {
+        } else if (isImageFile && currentToggleIsVideo) {
+          // User selected an image but Video mode is ON - switch to Image mode
+          console.log("Auto-switching to Image mode (selected image file)");
           finalSaveType = false;
+          switchedMode = true;
           if (typeToggle) {
             typeToggle.checked = false;
             updateTypeDisplay();
           }
-          showToast("Auto-switched to Image mode");
         }
       }
       
-      // Save the file
+      if (switchedMode) {
+        showToast(`Auto-switched to ${finalSaveType ? "Video" : "Image"} mode for selected file`, 2000);
+      }
+      
+      // Handle file copy based on final save type
       if (finalSaveType) {
-        // Save video
+        // === SAVE AS VIDEO (MP4) ===
+        console.log("SAVING AS VIDEO...");
+        
         if (selectedBannerPath === "current") {
-          console.log("Keeping current video");
+          console.log("Keeping current video file");
         } else {
-          await exec(`cp -f "${selectedBannerPath}" "${videoFile}"`);
+          console.log(`Copying video: ${selectedBannerPath} -> ${videoFile}`);
+          
+          // Verify it's a video file (extra check)
+          const isVideoFile = /\.(mp4|webm|mkv|avi|mov|flv|wmv|m4v|3gp|ogv)$/i.test(selectedBannerPath);
+          if (!isVideoFile) {
+            throw new Error(`Not a supported video format. Supported: MP4, WebM, MKV, AVI, MOV, FLV, WMV, M4V, 3GP, OGV`);
+          }
+          
+          await exec(`cp -f "${selectedBannerPath}" "${videoFile}" 2>/dev/null`);
+          
+          try {
+            const check = await exec(`ls -la "${videoFile}" 2>/dev/null`);
+            console.log("Video file created:", check);
+          } catch {
+            throw new Error("Failed to create video file");
+          }
         }
+        
+        // Keep image file for future use
+        console.log("Keeping image file for future use");
+        
       } else {
-        // Save image
+        // === SAVE AS IMAGE (WEBP) ===
+        console.log("SAVING AS IMAGE...");
+        
         if (selectedBannerPath === "current") {
-          console.log("Keeping current image");
+          console.log("Keeping current image file");
         } else {
-          await exec(`cp -f "${selectedBannerPath}" "${imageFile}"`);
+          console.log(`Copying image: ${selectedBannerPath} -> ${imageFile}`);
+          
+          // Verify it's an image file (extra check)
+          const isImageFile = /\.(jpg|jpeg|png|webp|gif|bmp|tiff|svg)$/i.test(selectedBannerPath);
+          if (!isImageFile) {
+            throw new Error(`Not a supported image format. Supported: JPG, PNG, WEBP, GIF, BMP, TIFF, SVG`);
+          }
+          
+          await exec(`cp -f "${selectedBannerPath}" "${imageFile}" 2>/dev/null`);
+          
+          try {
+            const check = await exec(`ls -la "${imageFile}" 2>/dev/null`);
+            console.log("Image file created:", check);
+          } catch {
+            throw new Error("Failed to create image file");
+          }
         }
+        
+        // Keep video file for future use
+        console.log("Keeping video file for future use");
       }
       
       // Update config
@@ -660,14 +744,29 @@ async function setupBannerMenu() {
       bannerConfig.blur = parseInt(rB.value);
       bannerConfig.type = finalSaveType ? "video" : "image";
       
+      console.log("Updated config:", bannerConfig);
+      
       // Save config
-      await saveConfig();
+      const configStr = JSON.stringify(bannerConfig, null, 2);
+      const escapedConfig = configStr.replace(/'/g, "'\"'\"'");
+      await exec(`echo '${escapedConfig}' > "${CONFIG}" 2>/dev/null`);
       
       // Update main banner
       applyToMainBanner();
       
       // Show success
-      showToast(`✅ ${finalSaveType ? "Video" : "Image"} saved successfully!`);
+      let successMsg;
+      if (finalSaveType) {
+        successMsg = "✅ Video saved successfully!";
+      } else {
+        successMsg = "✅ Image saved successfully!";
+      }
+      
+      if (switchedMode) {
+        successMsg += " (Mode auto-switched)";
+      }
+      
+      showToast(successMsg);
       
       setTimeout(() => {
         closeModal();
@@ -675,7 +774,19 @@ async function setupBannerMenu() {
       
     } catch (error) {
       console.error("SAVE FAILED:", error);
-      showError("Save failed: " + (error.message || error));
+      
+      let errorMsg = "Save failed";
+      if (error.message.includes("Permission")) {
+        errorMsg = "Permission error. Check module permissions.";
+      } else if (error.message.includes("Not a supported")) {
+        errorMsg = error.message;
+      } else if (error.message.includes("Failed to create")) {
+        errorMsg = "File creation failed. Check storage permissions.";
+      } else {
+        errorMsg = error.message || error.toString();
+      }
+      
+      showError(errorMsg);
       
     } finally {
       saveBtn.textContent = originalText;
@@ -684,7 +795,7 @@ async function setupBannerMenu() {
     }
   };
 
-  function showToast(message) {
+  function showToast(message, duration = 3000) {
     const existing = document.querySelector('.toast-message');
     if (existing) existing.remove();
     
@@ -696,22 +807,42 @@ async function setupBannerMenu() {
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: #4CAF50;
+      background: #2196F3;
       color: white;
       padding: 12px 24px;
-      border-radius: 4px;
+      border-radius: 6px;
       z-index: 10000;
       animation: toastIn 0.3s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
       font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+      white-space: nowrap;
     `;
+    
+    // Add CSS animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes toastIn {
+        from { opacity: 0; transform: translate(-50%, -20px); }
+        to { opacity: 1; transform: translate(-50%, 0); }
+      }
+      @keyframes toastOut {
+        from { opacity: 1; transform: translate(-50%, 0); }
+        to { opacity: 0; transform: translate(-50%, -20px); }
+      }
+    `;
+    document.head.appendChild(style);
     
     document.body.appendChild(toast);
     
     setTimeout(() => {
       toast.style.animation = "toastOut 0.3s ease";
-      setTimeout(() => toast.remove(), 300);
-    }, 3000);
+      setTimeout(() => {
+        toast.remove();
+        style.remove();
+      }, 300);
+    }, duration);
   }
 
   function showError(message) {
@@ -729,10 +860,13 @@ async function setupBannerMenu() {
       background: #f44336;
       color: white;
       padding: 12px 24px;
-      border-radius: 4px;
+      border-radius: 6px;
       z-index: 10000;
       animation: toastIn 0.3s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
     `;
     
     document.body.appendChild(error);
