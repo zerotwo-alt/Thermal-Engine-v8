@@ -1,43 +1,35 @@
 {
-  "title": "Điều khiển nhiệt",
+  "title": "Điều Khiển Nhiệt",
   "offline": "Ngoại tuyến",
   "online": "Trực tuyến",
-
-  "dark_mode": "Chế độ tối",
-  "fast_charging": "Sạc nhanh",
-  "video_banner": "Banner video",
-
-  "android": "Android",
-  "kernel": "Kernel",
-
-  "level": "Mức pin",
-  "status": "Trạng thái",
-  "voltage": "Điện áp",
-  "temperature": "Nhiệt độ",
-  "power": "Công suất",
-  "charging_type": "Loại sạc",
-  "full_in": "Đầy trong",
-
-  "thermal_profile": "Hồ sơ nhiệt",
-
-  "performance": "💥 Hiệu năng",
-  "balanced": "⚡ Cân bằng",
-  "battery": "🌿 Tiết kiệm pin",
-
-  "cpu_status": "Trạng thái CPU",
+  "dark_mode": "Chế Độ Tối",
+  "video_banner": "Banner Video",
+  "level": "Mức",
+  "temperature": "Nhiệt Độ",
+  "batteryVoltage": "Điện Áp Pin",
+  "power": "Công Suất",
+  "current": "Dòng Điện",
+  "inputVoltage": "Điện Áp Đầu Vào",
+  "charging_type": "Loại Sạc",
+  "full_in": "Sạc Đầy",
+  "thermal_profile": "Hồ Sơ Nhiệt",
+  "performance": "💥 Hiệu Suất",
+  "balanced": "⚡ Cân Bằng",
+  "battery": "🌿 Pin",
+  "cpu_status": "Trạng Thái CPU",
   "cpu_load": "Tải CPU",
-
-  "settings_title": "Cài đặt",
-  "settings_language": "Ngôn ngữ",
-
-  "banner_customize": "Tùy chỉnh banner",
-  "banner_video": "Video banner",
-  "select_video": "Chọn video",
-  "download_folder": "Thư mục tải xuống",
-
-  "darkness": "Độ tối",
-  "blur": "Làm mờ",
-
-  "save_apply": "Lưu & áp dụng",
-  "video_not_supported": "Thiết bị không hỗ trợ video"
+  "banner_customize": "Tùy Chỉnh Banner",
+  "download_folder": "Thư Mục Tải Xuống",
+  "preview": "Xem Trước",
+  "darkness": "Độ Tối",
+  "blur": "Làm Mờ",
+  "save_apply": "Lưu & Áp Dụng",
+  "slow_charging": "Sạc Chậm",
+  "normal_charging": "Đang Sạc",
+  "fast_charging": "Sạc Nhanh",
+  "quick_charging": "Sạc Nhanh",
+  "quick_charging_3": "Sạc Nhanh 3.0",
+  "mi_turbo_charging": "MI Turbo Sạc",
+  "turbo_charging": "Turbo Sạc",
+  "67w_turbo_charging": "67W Turbo Sạc"
 }

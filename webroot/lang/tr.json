@@ -2,42 +2,34 @@
   "title": "Termal Kontrol",
   "offline": "Çevrimdışı",
   "online": "Çevrimiçi",
-
   "dark_mode": "Karanlık Mod",
-  "fast_charging": "Hızlı Şarj",
   "video_banner": "Video Afişi",
-
-  "android": "Android",
-  "kernel": "Çekirdek",
-
-  "level": "Pil Seviyesi",
-  "status": "Durum",
-  "voltage": "Voltaj",
+  "level": "Seviye",
   "temperature": "Sıcaklık",
+  "batteryVoltage": "Batarya Voltajı",
   "power": "Güç",
+  "current": "Akım",
+  "inputVoltage": "Giriş Voltajı",
   "charging_type": "Şarj Türü",
-  "full_in": "Tam dolum",
-
+  "full_in": "Tam Dolum",
   "thermal_profile": "Termal Profil",
-
   "performance": "💥 Performans",
   "balanced": "⚡ Dengeli",
-  "battery": "🌿 Tasarruf",
-
+  "battery": "🌿 Batarya",
   "cpu_status": "CPU Durumu",
   "cpu_load": "CPU Yükü",
-
-  "settings_title": "Ayarlar",
-  "settings_language": "Dil",
-
   "banner_customize": "Afişi Özelleştir",
-  "banner_video": "Afiş Videosu",
-  "select_video": "Video Seç",
   "download_folder": "İndirme Klasörü",
-
+  "preview": "Önizleme",
   "darkness": "Karanlık",
   "blur": "Bulanıklık",
-
   "save_apply": "Kaydet ve Uygula",
-  "video_not_supported": "Bu cihazda video desteklenmiyor"
+  "slow_charging": "Yavaş Şarj",
+  "normal_charging": "Şarj Ediliyor",
+  "fast_charging": "Hızlı Şarj",
+  "quick_charging": "Hızlı Şarj",
+  "quick_charging_3": "Hızlı Şarj 3.0",
+  "mi_turbo_charging": "MI Turbo Şarj",
+  "turbo_charging": "Turbo Şarj",
+  "67w_turbo_charging": "67W Turbo Şarj"
 }

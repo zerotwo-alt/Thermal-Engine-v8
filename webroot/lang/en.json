@@ -2,42 +2,35 @@
   "title": "Thermal Control",
   "offline": "Offline",
   "online": "Online",
-
   "dark_mode": "Dark Mode",
-  "fast_charging": "Fast Charging",
   "video_banner": "Video Banner",
-
-  "android": "Android",
-  "kernel": "Kernel",
-
-  "level": "Battery Level",
-  "status": "Status",
-  "voltage": "Voltage",
+  "level": "Level",
   "temperature": "Temperature",
+  "batteryVoltage": "Battery Voltage",
   "power": "Power",
+  "current": "Current",
+  "inputVoltage": "Input Voltage",
   "charging_type": "Charging Type",
-  "full_in": "Full In",
-
+  "full_in": "Full in",
   "thermal_profile": "Thermal Profile",
-
   "performance": "💥Performance",
   "balanced": "⚡Balanced",
   "battery": "🌿Battery",
-
   "cpu_status": "CPU Status",
   "cpu_load": "CPU Load",
-
-  "settings_title": "Settings",
-  "settings_language": "Language",
-
   "banner_customize": "Customize Banner",
-  "banner_video": "Banner Video",
-  "select_video": "Select Video",
   "download_folder": "Download Folder",
-
+  "preview": "PREVIEW",
   "darkness": "Darkness",
   "blur": "Blur",
-
   "save_apply": "Save & Apply",
-  "video_not_supported": "Video is not supported on this device"
+  
+  "slow_charging": "Slow Charging",
+  "normal_charging": "Charging",
+  "fast_charging": "Fast Charging",
+  "quick_charging": "Quick Charging",
+  "quick_charging_3": "Quick Charging 3.0",
+  "mi_turbo_charging": "MI Turbo Charging",
+  "turbo_charging": "Turbo Charging",
+  "67w_turbo_charging": "67W Turbo Charging"
 }

@@ -1014,3 +1014,463 @@ html[dir="rtl"] .lang-popup li {
   font-size: 12px;
   font-weight: 600;
 }
+
+/* =========================
+   TEMPERATURE COLOR SYSTEM
+========================= */
+
+/* Temperature display element */
+#batteryTemp {
+  font-weight: 900;
+  transition: color 0.3s ease;
+}
+
+/* Temperature colors based on value */
+#batteryTemp.cool {
+  color: var(--apple-green);      /* ≤30°C */
+}
+
+#batteryTemp.green {
+  color: var(--apple-green);      /* 30-39°C */
+}
+
+#batteryTemp.warm {
+  color: #ff9500;                 /* 40-44°C (Apple orange) */
+}
+
+#batteryTemp.hot {
+  color: var(--danger);           /* ≥45°C */
+}
+
+/* Optional: Add glow effect for critical temps */
+#batteryTemp.critical {
+  color: #ff3b30;
+  text-shadow: 0 0 10px rgba(255, 59, 48, 0.4);
+}
+/* =========================
+   BATTERY CARD STYLES
+========================= */
+.battery-card {
+  padding: 20px;
+  margin-top: 14px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  transition: all 0.3s ease;
+}
+
+/* Battery Header */
+.battery-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.battery-percent {
+  text-align: center;
+}
+
+.percent-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sub-light);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.percent-circle {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #30d158 0%, #34c759 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(48, 209, 88, 0.3);
+  transition: all 0.3s ease;
+}
+
+.percent-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.charging-info {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.charging-type {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text-light);
+}
+
+.time-remaining {
+  margin-bottom: 6px;
+}
+
+.time-label {
+  font-size: 13px;
+  color: var(--sub-light);
+  margin-right: 6px;
+}
+
+.time-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.charging-speed {
+  font-size: 13px;
+  color: #30d158;
+  font-weight: 600;
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background: var(--divider-light);
+  margin: 16px 0;
+  opacity: 0.4;
+}
+
+/* Battery Stats */
+.battery-stats {
+  padding-top: 8px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.stat-item {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: var(--sub-light);
+  margin-bottom: 4px;
+  opacity: 0.8;
+}
+
+.stat-value {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+/* =========================
+   TEMPERATURE COLORS
+========================= */
+#batteryTemp.normal {
+  color: #30d158; /* Green: 20-35°C */
+}
+
+#batteryTemp.warm {
+  color: #ff9500; /* Orange: 35-40°C */
+}
+
+#batteryTemp.hot {
+  color: #ff3b30; /* Red: 40-45°C */
+}
+
+#batteryTemp.very-hot {
+  color: #ff2d55; /* Bright Red: >45°C */
+}
+
+#batteryTemp.cold {
+  color: #5ac8fa; /* Blue: <20°C */
+}
+
+/* =========================
+   CURRENT AND POWER COLORS
+========================= */
+/* Current Row */
+.current-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(48, 209, 88, 0.1);
+  border-radius: 10px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.current-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.current-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #30d158;
+  transition: all 0.3s ease;
+}
+
+/* Input Voltage Row */
+.input-voltage-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: rgba(0, 122, 255, 0.1);
+  border-radius: 10px;
+}
+
+.input-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-light);
+}
+
+.input-value {
+  font-size: 16px;
+  font-weight: 700;
+  color: #007aff;
+}
+
+/* =========================
+   POWER COLORS
+========================= */
+#batteryPower.charge {
+  color: #30d158;
+  font-weight: 700;
+}
+
+#batteryPower.discharge {
+  color: #ff3b30;
+  font-weight: 700;
+}
+
+/* Charge type colors */
+#chargeType.charging {
+  color: #30d158;
+  font-weight: 600;
+}
+
+#chargeType.discharging {
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+#chargeType.full {
+  color: #007aff;
+  font-weight: 600;
+}
+
+/* =========================
+   CHARGING SPEED TEXT
+========================= */
+#chargingSpeed.charge {
+  color: #30d158;
+  font-weight: 600;
+}
+
+#chargingSpeed.turbo {
+  color: #FFFFFF;
+  font-weight: 700;
+  text-shadow: 0 0 8px #2E6BFF, 0 0 16px #7A3CFF;
+  background: linear-gradient(90deg, #2E6BFF, #7A3CFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: turbo-text-glow 2s ease-in-out infinite;
+}
+
+@keyframes turbo-text-glow {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 10px #2E6BFF,
+      0 0 20px #3F8CFF,
+      0 0 30px #7A3CFF;
+  }
+  50% {
+    opacity: 0.9;
+    text-shadow: 
+      0 0 15px #3F8CFF,
+      0 0 25px #7A3CFF,
+      0 0 35px #5A2DCC;
+  }
+}
+
+#chargingSpeed.discharging {
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+/* =========================
+   TIME DISPLAY - NO BACKGROUND GLOW
+========================= */
+/* Time display has NO special styling - just normal text */
+#batteryTime {
+  /* Normal time display - no glow, no special background */
+}
+
+/* Remove all previous time glow classes */
+#batteryTime.quick-charge,
+#batteryTime.mi-turbo {
+  /* NO special styling for time display */
+}
+
+/* =========================
+   BANNER GLOW (ONLY FOR CHARGING)
+========================= */
+.banner.turbo-glow {
+  background: linear-gradient(90deg, 
+    rgba(46, 107, 255, 0.1) 0%,
+    rgba(122, 60, 255, 0.1) 100%
+  );
+  border-left: 3px solid #2E6BFF;
+  animation: banner-glow 3s ease-in-out infinite;
+}
+
+@keyframes banner-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(46, 107, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(122, 60, 255, 0.4);
+  }
+}
+
+/* =========================
+   DARK MODE
+========================= */
+body.dark .battery-card {
+  background: var(--card-bg-dark);
+}
+
+body.dark .percent-circle {
+  background: linear-gradient(135deg, #30d158 0%, #2da84f 100%);
+}
+
+body.dark .charging-type {
+  color: var(--text-dark);
+}
+
+body.dark .time-value {
+  color: var(--text-dark);
+}
+
+body.dark .stat-value {
+  color: var(--text-dark);
+}
+
+body.dark .current-label {
+  color: var(--text-dark);
+}
+
+body.dark .current-row {
+  background: rgba(48, 209, 88, 0.15);
+}
+
+body.dark .input-voltage-row {
+  background: rgba(0, 122, 255, 0.15);
+}
+
+body.dark .input-label {
+  color: var(--text-dark);
+}
+
+/* Temperature colors in dark mode */
+body.dark #batteryTemp.normal {
+  color: #30d158;
+}
+
+body.dark #batteryTemp.warm {
+  color: #ff9500;
+}
+
+body.dark #batteryTemp.hot {
+  color: #ff3b30;
+}
+
+body.dark #batteryTemp.very-hot {
+  color: #ff2d55;
+}
+
+body.dark #batteryTemp.cold {
+  color: #5ac8fa;
+}
+
+/* Dark mode charging speed */
+body.dark #chargingSpeed.turbo {
+  text-shadow: 
+    0 0 12px #2E6BFF,
+    0 0 24px #7A3CFF,
+    0 0 36px rgba(122, 60, 255, 0.7);
+}
+
+body.dark .banner.turbo-glow {
+  background: linear-gradient(90deg, 
+    rgba(46, 107, 255, 0.15) 0%,
+    rgba(122, 60, 255, 0.15) 50%,
+    rgba(46, 107, 255, 0.15) 100%
+  );
+}
+
+/* Discharging colors in dark mode */
+body.dark #batteryPower.discharge {
+  color: #ff3b30;
+}
+
+body.dark #chargeType.discharging {
+  color: var(--text-dark);
+}
+
+body.dark #chargingSpeed.discharging {
+  color: var(--text-dark);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 380px) {
+  .battery-card {
+    padding: 16px;
+  }
+  
+  .percent-circle {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .percent-value {
+    font-size: 20px;
+  }
+  
+  .charging-type {
+    font-size: 14px;
+  }
+  
+  .time-value {
+    font-size: 13px;
+  }
+  
+  .charging-speed {
+    font-size: 12px;
+  }
+  
+  .stat-value {
+    font-size: 14px;
+  }
+  
+  .current-value,
+  .input-value {
+    font-size: 14px;
+  }
+}

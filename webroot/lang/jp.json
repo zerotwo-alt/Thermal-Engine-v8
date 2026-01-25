@@ -2,42 +2,34 @@
   "title": "サーマル制御",
   "offline": "オフライン",
   "online": "オンライン",
-
   "dark_mode": "ダークモード",
-  "fast_charging": "急速充電",
   "video_banner": "ビデオバナー",
-
-  "android": "Android",
-  "kernel": "カーネル",
-
-  "level": "バッテリー残量",
-  "status": "状態",
-  "voltage": "電圧",
+  "level": "レベル",
   "temperature": "温度",
-  "power": "消費電力",
+  "batteryVoltage": "バッテリー電圧",
+  "power": "電力",
+  "current": "電流",
+  "inputVoltage": "入力電圧",
   "charging_type": "充電タイプ",
-  "full_in": "満充電まで",
-
-  "thermal_profile": "温度プロファイル",
-
+  "full_in": "フル充電",
+  "thermal_profile": "サーマルプロファイル",
   "performance": "💥 パフォーマンス",
   "balanced": "⚡ バランス",
-  "battery": "🌿 省電力",
-
-  "cpu_status": "CPU 状態",
-  "cpu_load": "CPU 負荷",
-
-  "settings_title": "設定",
-  "settings_language": "言語",
-
-  "banner_customize": "バナーのカスタマイズ",
-  "banner_video": "バナービデオ",
-  "select_video": "ビデオを選択",
+  "battery": "🌿 バッテリー",
+  "cpu_status": "CPU状態",
+  "cpu_load": "CPU負荷",
+  "banner_customize": "バナーをカスタマイズ",
   "download_folder": "ダウンロードフォルダ",
-
+  "preview": "プレビュー",
   "darkness": "暗さ",
   "blur": "ぼかし",
-
   "save_apply": "保存して適用",
-  "video_not_supported": "このデバイスでは動画をサポートしていません"
+  "slow_charging": "低速充電",
+  "normal_charging": "充電中",
+  "fast_charging": "急速充電",
+  "quick_charging": "クイック充電",
+  "quick_charging_3": "クイック充電 3.0",
+  "mi_turbo_charging": "MI ターボ充電",
+  "turbo_charging": "ターボ充電",
+  "67w_turbo_charging": "67W ターボ充電"
 }

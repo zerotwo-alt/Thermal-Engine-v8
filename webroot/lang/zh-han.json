@@ -1,43 +1,36 @@
 {
-  "title": "温控管理",
-  "offline": "离线",
-  "online": "在线",
-
-  "dark_mode": "深色模式",
-  "fast_charging": "快速充电",
-  "video_banner": "视频横幅",
-
-  "android": "Android",
-  "kernel": "内核",
-
-  "level": "电池电量",
-  "status": "状态",
-  "voltage": "电压",
-  "temperature": "温度",
-  "power": "功耗",
-  "charging_type": "充电类型",
-  "full_in": "充满时间",
-
-  "thermal_profile": "温控模式",
-
-  "performance": "💥 性能",
-  "balanced": "⚡ 均衡",
-  "battery": "🌿 省电",
-
-  "cpu_status": "CPU 状态",
-  "cpu_load": "CPU 负载",
-
-  "settings_title": "设置",
-  "settings_language": "语言",
-
-  "banner_customize": "自定义横幅",
-  "banner_video": "横幅视频",
-  "select_video": "选择视频",
-  "download_folder": "下载文件夹",
-
-  "darkness": "暗度",
-  "blur": "模糊",
-
-  "save_apply": "保存并应用",
-  "video_not_supported": "此设备不支持视频"
+    "title": "温控引擎",
+    "offline": "离线",
+    "online": "在线",
+    "dark_mode": "深色模式",
+    "video_banner": "视频横幅",
+    "level": "电量",
+    "temperature": "温度",
+    "batteryVoltage": "电池电压",
+    "power": "功率",
+    "current": "电流",
+    "inputVoltage": "输入电压",
+    "charging_type": "充电类型",
+    "full_in": "充满时间",
+    "thermal_profile": "温控模式",
+    "performance": "💥 性能模式",
+    "balanced": "⚡ 均衡模式",
+    "battery": "🌿 省电模式",
+    "cpu_status": "CPU状态",
+    "cpu_load": "CPU负载",
+    "banner_customize": "自定义横幅",
+    "download_folder": "下载文件夹",
+    "preview": "预览",
+    "darkness": "暗度",
+    "blur": "模糊",
+    "save_apply": "保存并应用",
+    
+    "slow_charging": "慢速充电",
+    "normal_charging": "充电中",
+    "fast_charging": "快速充电",
+    "quick_charging": "快速充电",
+    "quick_charging_3": "快速充电 3.0",
+    "mi_turbo_charging": "MI 涡轮充电",
+    "turbo_charging": "涡轮充电",
+    "67w_turbo_charging": "67W 涡轮充电"
 }

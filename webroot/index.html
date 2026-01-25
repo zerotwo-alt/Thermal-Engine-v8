@@ -115,22 +115,57 @@
   </label>
 </div>
    
-  <!-- ================= BATTERY ================= -->
-  <div class="card mono">
-    <div class="mono-row"><span data-i18n="level">Level</span><b id="batteryLevel">--%</b></div>
-    <div class="divider"></div>
-    <div class="mono-row"><span data-i18n="status">Status</span><b id="batteryStatus">--</b></div>
-    <div class="divider"></div>
-    <div class="mono-row"><span data-i18n="voltage">Voltage</span><b id="batteryVoltage">-- V</b></div>
-    <div class="divider"></div>
-    <div class="mono-row"><span data-i18n="temperature">Temperature</span><b id="batteryTemp">-- °C</b></div>
-    <div class="divider"></div>
-    <div class="mono-row"><span data-i18n="power">Power</span><b id="batteryPower">-- W</b></div>
-    <div class="divider"></div>
-    <div class="mono-row"><span data-i18n="charging_type">Charging type</span><b id="chargeType">--</b></div>
-    <div class="divider"></div>
-    <div class="mono-row"><span data-i18n="full_in">Full in</span><b id="batteryTime">--</b></div>
+<!-- ================= BATTERY ================= -->
+<div class="card battery-card">
+  <div class="battery-header">
+    <div class="battery-percent">
+      <span class="percent-label" data-i18n="level">Level</span>
+      <div class="percent-circle">
+        <span class="percent-value" id="batteryLevel">--</span>
+      </div>
+    </div>
+    
+    <div class="charging-info">
+      <!-- Line 1: Shows "Fast charging", "Turbo charging", "Discharging" -->
+      <div class="charging-type" id="chargeType" data-i18n="charging_type">Charging type</div>
+      <div class="time-remaining">
+        <span class="time-label" data-i18n="full_in">Full in</span>
+        <span class="time-value" id="batteryTime">--</span>
+      </div>
+      <!-- Line 3: Shows "Charging" or "Discharging" (CHANGED ID to chargingSpeed) -->
+      <div class="charging-speed" id="chargingSpeed">--</div>
+    </div>
   </div>
+  
+  <div class="divider"></div>
+  
+  <div class="battery-stats">
+    <div class="stat-row">
+      <div class="stat-item">
+        <span class="stat-label" data-i18n="temperature">Temperature</span>
+        <span class="stat-value" id="batteryTemp">-- °C</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label" data-i18n="batteryVoltage">Battery Voltage</span>
+        <span class="stat-value" id="batteryVoltage">-- V</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label" data-i18n="power">Power</span>
+        <span class="stat-value" id="batteryPower">-- W</span>
+      </div>
+    </div>
+    
+    <div class="current-row">
+      <span class="current-label" data-i18n="current">Current</span>
+      <span class="current-value" id="batteryCurrent">-- mA</span>
+    </div>
+    
+    <div class="input-voltage-row">
+      <span class="input-label" data-i18n="inputVoltage">Input Voltage</span>
+      <span class="input-value" id="inputVoltage">-- V</span>
+    </div>
+  </div>
+</div>
 
   <!-- ================= THERMAL PROFILE ================= -->
   <div class="card">
@@ -213,7 +248,6 @@
 <!-- ================= SCRIPTS ================= -->
 <script src="js/module.js"></script>
 <script src="js/theme.js"></script>
-<script src="js/system.js"></script>
 <script src="js/stats.js"></script>
 <script src="js/profiles.js"></script>
 <script src="js/language.js"></script>

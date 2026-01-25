@@ -2,42 +2,34 @@
   "title": "Kontrol Termal",
   "offline": "Offline",
   "online": "Online",
-
   "dark_mode": "Mode Gelap",
-  "fast_charging": "Pengisian Cepat",
   "video_banner": "Banner Video",
-
-  "android": "Android",
-  "kernel": "Kernel",
-
-  "level": "Level Baterai",
-  "status": "Status",
-  "voltage": "Tegangan",
+  "level": "Level",
   "temperature": "Suhu",
+  "batteryVoltage": "Tegangan Baterai",
   "power": "Daya",
+  "current": "Arus",
+  "inputVoltage": "Tegangan Masuk",
   "charging_type": "Jenis Pengisian",
-  "full_in": "Penuh dalam",
-
+  "full_in": "Penuh",
   "thermal_profile": "Profil Termal",
-
   "performance": "💥 Performa",
   "balanced": "⚡ Seimbang",
-  "battery": "🌿 Hemat Daya",
-
+  "battery": "🌿 Baterai",
   "cpu_status": "Status CPU",
   "cpu_load": "Beban CPU",
-
-  "settings_title": "Pengaturan",
-  "settings_language": "Bahasa",
-
   "banner_customize": "Sesuaikan Banner",
-  "banner_video": "Video Banner",
-  "select_video": "Pilih Video",
   "download_folder": "Folder Unduhan",
-
+  "preview": "Pratinjau",
   "darkness": "Kegelapan",
   "blur": "Blur",
-
   "save_apply": "Simpan & Terapkan",
-  "video_not_supported": "Video tidak didukung di perangkat ini"
+  "slow_charging": "Pengisian Lambat",
+  "normal_charging": "Mengisi Daya",
+  "fast_charging": "Pengisian Cepat",
+  "quick_charging": "Pengisian Cepat",
+  "quick_charging_3": "Pengisian Cepat 3.0",
+  "mi_turbo_charging": "MI Turbo Charging",
+  "turbo_charging": "Turbo Charging",
+  "67w_turbo_charging": "67W Turbo Charging"
 }

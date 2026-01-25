@@ -1,43 +1,35 @@
 {
-  "title": "Kontrola termiczna",
+  "title": "Kontrola Termiczna",
   "offline": "Offline",
   "online": "Online",
-
-  "dark_mode": "Tryb ciemny",
-  "fast_charging": "Szybkie ładowanie",
-  "video_banner": "Baner wideo",
-
-  "android": "Android",
-  "kernel": "Jądro",
-
-  "level": "Poziom baterii",
-  "status": "Status",
-  "voltage": "Napięcie",
+  "dark_mode": "Tryb Ciemny",
+  "video_banner": "Baner Wideo",
+  "level": "Poziom",
   "temperature": "Temperatura",
+  "batteryVoltage": "Napięcie Baterii",
   "power": "Moc",
-  "charging_type": "Typ ładowania",
-  "full_in": "Pełne naładowanie za",
-
-  "thermal_profile": "Profil termiczny",
-
+  "current": "Prąd",
+  "inputVoltage": "Napięcie Wejściowe",
+  "charging_type": "Typ Ładowania",
+  "full_in": "Pełne naładowanie",
+  "thermal_profile": "Profil Termiczny",
   "performance": "💥 Wydajność",
   "balanced": "⚡ Zrównoważony",
-  "battery": "🌿 Oszczędny",
-
+  "battery": "🌿 Bateria",
   "cpu_status": "Stan CPU",
   "cpu_load": "Obciążenie CPU",
-
-  "settings_title": "Ustawienia",
-  "settings_language": "Język",
-
-  "banner_customize": "Dostosuj baner",
-  "banner_video": "Wideo banera",
-  "select_video": "Wybierz wideo",
-  "download_folder": "Folder pobierania",
-
+  "banner_customize": "Dostosuj Baner",
+  "download_folder": "Folder Pobierania",
+  "preview": "Podgląd",
   "darkness": "Ciemność",
   "blur": "Rozmycie",
-
-  "save_apply": "Zapisz i zastosuj",
-  "video_not_supported": "Wideo nie jest obsługiwane na tym urządzeniu"
+  "save_apply": "Zapisz i Zastosuj",
+  "slow_charging": "Wolne Ładowanie",
+  "normal_charging": "Ładowanie",
+  "fast_charging": "Szybkie Ładowanie",
+  "quick_charging": "Szybkie Ładowanie",
+  "quick_charging_3": "Szybkie Ładowanie 3.0",
+  "mi_turbo_charging": "MI Turbo Ładowanie",
+  "turbo_charging": "Turbo Ładowanie",
+  "67w_turbo_charging": "67W Turbo Ładowanie"
 }

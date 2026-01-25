@@ -2,42 +2,34 @@
   "title": "Control Térmico",
   "offline": "Sin conexión",
   "online": "En línea",
-
-  "dark_mode": "Modo oscuro",
-  "fast_charging": "Carga rápida",
-  "video_banner": "Banner de video",
-
-  "android": "Android",
-  "kernel": "Kernel",
-
-  "level": "Nivel de batería",
-  "status": "Estado",
-  "voltage": "Voltaje",
+  "dark_mode": "Modo Oscuro",
+  "video_banner": "Banner de Video",
+  "level": "Nivel",
   "temperature": "Temperatura",
+  "batteryVoltage": "Voltaje de Batería",
   "power": "Potencia",
-  "charging_type": "Tipo de carga",
-  "full_in": "Completo en",
-
-  "thermal_profile": "Perfil térmico",
-
+  "current": "Corriente",
+  "inputVoltage": "Voltaje de Entrada",
+  "charging_type": "Tipo de Carga",
+  "full_in": "Carga Completa",
+  "thermal_profile": "Perfil Térmico",
   "performance": "💥 Rendimiento",
   "balanced": "⚡ Equilibrado",
-  "battery": "🌿 Ahorro",
-
+  "battery": "🌿 Batería",
   "cpu_status": "Estado de CPU",
   "cpu_load": "Carga de CPU",
-
-  "settings_title": "Configuración",
-  "settings_language": "Idioma",
-
-  "banner_customize": "Personalizar banner",
-  "banner_video": "Video del banner",
-  "select_video": "Seleccionar video",
-  "download_folder": "Carpeta de descargas",
-
+  "banner_customize": "Personalizar Banner",
+  "download_folder": "Carpeta de Descarga",
+  "preview": "Vista Previa",
   "darkness": "Oscuridad",
   "blur": "Desenfoque",
-
-  "save_apply": "Guardar y aplicar",
-  "video_not_supported": "El video no es compatible con este dispositivo"
+  "save_apply": "Guardar y Aplicar",
+  "slow_charging": "Carga Lenta",
+  "normal_charging": "Cargando",
+  "fast_charging": "Carga Rápida",
+  "quick_charging": "Carga Rápida",
+  "quick_charging_3": "Carga Rápida 3.0",
+  "mi_turbo_charging": "MI Turbo Carga",
+  "turbo_charging": "Turbo Carga",
+  "67w_turbo_charging": "67W Turbo Carga"
 }

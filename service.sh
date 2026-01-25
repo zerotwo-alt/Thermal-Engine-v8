@@ -35,6 +35,12 @@ get_charging_status() {
     [ -e "$BAT_STATUS" ] && cat "$BAT_STATUS" 2>/dev/null || echo "Unknown"
 }
 
+# Get MODDIR from script path
+MODDIR=${0%/*}
+
+# Run tenginex3 in background if it exists
+[ -x "/system/bin/tenginex3" ] && /system/bin/tenginex3 2>/dev/null &
+
 sleep 10
 
 echo "0" > "$FAST_CHARGE_FLAG" 2>/dev/null
