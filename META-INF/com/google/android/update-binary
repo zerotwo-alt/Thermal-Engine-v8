@@ -1,0 +1,19 @@
+ui_print(" ");
+ui_print("T-ENGINE Paradise v7.0");
+ui_print("Snapdragon 7s Gen 2 Optimized");
+ui_print("By: ZeroTwo");
+ui_print(" ");
+
+# Extract module
+package_extract_dir(".", "/data/adb/modules/thermal");
+
+# Set permissions
+set_metadata("/data/adb/modules/thermal/t-engine", "uid", 0, "gid", 0, "mode", 0755);
+set_metadata("/data/adb/modules/thermal/service.sh", "uid", 0, "gid", 0, "mode", 0755);
+set_metadata("/data/adb/modules/thermal/post-fs-data.sh", "uid", 0, "gid", 0, "mode", 0755);
+set_metadata("/data/adb/modules/thermal/customize.sh", "uid", 0, "gid", 0, "mode", 0755);
+
+ui_print(" ");
+ui_print("Installation complete!");
+ui_print("Reboot to activate.");
+ui_print(" ");

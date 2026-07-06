@@ -1,0 +1,6 @@
+id=hyperos_thermal_engine
+name=HyperOS Thermal Engine
+version=v8.0
+versionCode=800
+author=Flying 🐿️ 
+description=Advanced thermal engine for HyperOS. Optimizes CPU, GPU, charging, and foreground app thermal profiles to improve sustained performance, gaming stability, and temperature control.
