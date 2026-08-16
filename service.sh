@@ -1,33 +1,17 @@
 #!/system/bin/sh
-#
-# Thermal profile auto-switcher.
-# Mirrors org.lineageos.settings.thermal (ThermalService / ThermalUtils) with
-# user overrides honored exactly like the Settings UI (ThermalSettingsFragment)
-# expects, plus a couple of optional auto-detection extras layered on top.
-#
 LOG=/data/local/tmp/thermal.log
 exec >> "$LOG" 2>&1
 
 echo "[THERMAL] Service start"
 
-# -------------------------
-# WAIT FOR BOOT
-# -------------------------
 while [ "$(getprop sys.boot_completed)" != "1" ]; do
     sleep 2
 done
 sleep 5
 echo "[THERMAL] Boot completed"
 
-# -------------------------
-# PATHS
-# -------------------------
 MODDIR=${0%/*}
 THERMAL_SCONFIG="/sys/class/thermal/thermal_message/sconfig"
-
-# Config XML created by this module's customize.sh on install.
-# Edit /data/system/thermal_control.xml directly (or via your own tool) to
-# add/move packages between profiles — same format ThermalUtils would write.
 PREFS_XML="/data/system/thermal_control.xml"
 PREF_KEY="thermal_control"
 
@@ -39,10 +23,6 @@ done
 
 echo "[THERMAL] Thermal sysfs ready"
 
-# -------------------------
-# PROFILE VALUES
-# Mirrors ThermalUtils.THERMAL_STATE_MAP
-# -------------------------
 VAL_DEFAULT=0
 VAL_BENCHMARK=10
 VAL_BROWSER=11
@@ -53,23 +33,13 @@ VAL_NAVIGATION=19
 VAL_STREAMING=14
 VAL_VIDEO=21
 
-# ApplicationInfo category IDs
 CAT_GAME=1
 CAT_VIDEO=3
 CAT_MAPS=7
 
-# -------------------------
-# KNOWN SPECIAL PACKAGES
-# Mirrors ThermalUtils.getDefaultStateForPackage switch
-# -------------------------
 GMAPS_PKG="com.google.android.apps.maps"
 GMEET_PKG="com.google.android.apps.tachyon"
 
-# -------------------------
-# OPTIONAL EXTRAS (not in upstream ThermalUtils — upstream's own comment
-# says STATE_BENCHMARK/STATE_STREAMING auto-detection was never finished).
-# These only run if nothing else -- including a user override -- matched.
-# -------------------------
 BENCHMARK_PKG="
 com.primatelabs.geekbench6
 com.antutu.benchmark.full
@@ -139,10 +109,6 @@ Arena_Breakout Tencent_DNF Tencent_LOL Tencent_Spatula
 StarRail ZenlessZoneZero CarX_Street
 "
 
-# -------------------------
-# PACKAGE DUMP CACHE
-# dumpsys package is called once per app switch, result reused
-# -------------------------
 CACHE_PKG=""
 CACHE_DUMP=""
 
@@ -155,10 +121,6 @@ get_pkg_dump() {
     echo "$CACHE_DUMP"
 }
 
-# -------------------------
-# SYSTEM OVERLAY PACKAGES
-# QS panel, notification shade, recents — never trigger profile change
-# -------------------------
 is_system_overlay() {
     case "$1" in
         com.android.systemui)                  return 0 ;;
@@ -175,21 +137,11 @@ is_system_overlay() {
     return 1
 }
 
-# -------------------------
-# SCREEN STATE
-# -------------------------
 is_screen_on() {
     dumpsys power 2>/dev/null \
         | grep -qE 'mScreenOn=true|Display Power: state=ON'
 }
 
-# -------------------------
-# FOREGROUND APP
-# Prefer the real focused-task query (mirrors ActivityTaskManager
-# .getFocusedRootTaskInfo() that ThermalService's TaskStackListener uses);
-# dumpsys window's mCurrentFocus/mFocusedApp text format drifts across
-# OEM skins and is kept only as a fallback.
-# -------------------------
 get_foreground_pkg() {
     pkg=$(cmd activity stack list 2>/dev/null \
         | grep -m1 'visible=true.*topActivity' \
@@ -202,25 +154,6 @@ get_foreground_pkg() {
     echo "$pkg"
 }
 
-# -------------------------
-# USER OVERRIDE LOOKUP
-# Mirrors ThermalUtils.getStateForPackage()'s priority logic, reading the
-# config file customize.sh creates at install time (this module ships no
-# Settings app, so there's no SharedPreferences/spinner UI — edit the XML
-# directly to move a package between profiles).
-#
-# IMPORTANT: match by LABEL ("thermal.gaming="), not by field position.
-# customize.sh's default XML only ships 6 of the 9 possible segments
-# (benchmark/browser/camera/dialer/gaming/streaming — navigation, video,
-# and default are omitted), and even the segments it does ship are not
-# in ThermalUtils.STATE_* order ("streaming" sits right after "gaming",
-# not at the end). A positional 0..8 index would silently misclassify or
-# miss matches against this file. Splitting on the label text instead is
-# correct regardless of which fields are present or what order they're in.
-# A user setting ANY profile (including "default") for a package is an
-# explicit override and short-circuits auto-detection, exactly as in
-# getStateForPackage's if/else chain.
-# -------------------------
 get_user_override() {
     pkg="$1"
     [ -e "$PREFS_XML" ] || return 1
@@ -229,8 +162,6 @@ get_user_override() {
         | sed "s/.*\">//")
     [ -z "$raw" ] && return 1
 
-    # XML escapes & as &amp; — the value itself never contains a literal &
-    # so a plain unescape is sufficient here.
     raw=$(echo "$raw" | sed 's/&amp;/\&/g')
 
     OLDIFS="$IFS"
@@ -257,11 +188,6 @@ get_user_override() {
     return 0
 }
 
-# -------------------------
-# BROWSER DETECTION
-# Mirrors AppUtils.isBrowserApp:
-# App handles VIEW intent with http/https scheme
-# -------------------------
 is_browser_app() {
     pm query-activities \
         -a android.intent.action.VIEW \
@@ -269,11 +195,6 @@ is_browser_app() {
         | grep -q "packageName=$1"
 }
 
-# -------------------------
-# DIALER DETECTION
-# Mirrors DefaultDialerManager.getDefaultDialerApplication:
-# Package is the system default phone/dialer app
-# -------------------------
 is_dialer_app() {
     default_dialer=$(cmd telephony get-default-dialer 2>/dev/null)
     [ -z "$default_dialer" ] && \
@@ -281,53 +202,26 @@ is_dialer_app() {
     [ "$1" = "$default_dialer" ]
 }
 
-# -------------------------
-# CAMERA DETECTION
-# Mirrors ThermalUtils.isCameraApp:
-# App handles STILL_IMAGE_CAMERA intent (not just the default, any handler)
-# -------------------------
 is_camera_app() {
     pm query-activities \
         -a android.media.action.STILL_IMAGE_CAMERA 2>/dev/null \
         | grep -q "packageName=$1"
 }
 
-# -------------------------
-# CLASSIFY PACKAGE
-# Order mirrors ThermalUtils exactly for steps 2-6 (getStateForPackage
-# falling through to getDefaultStateForPackage). Step 1 (user override) is
-# the real priority override the original script was missing entirely.
-# Steps marked EXTRA are optional additions layered on top, not present
-# upstream.
-#
-#   1. User override (Settings UI)   -> getStateForPackage's modes[] lookup
-#   2. Special packages              -> GMaps -> navigation, GMeet -> streaming
-#   3. ApplicationInfo.category      -> game / video / maps
-#  [x. Benchmark list]               -> EXTRA, not in upstream
-#  [x. isGame flag / Play Games SDK] -> EXTRA, not in upstream
-#  [x. Manual game list/keywords]    -> EXTRA, not in upstream
-#   4. Browser intent check          -> AppUtils.isBrowserApp
-#   5. Default dialer check          -> DefaultDialerManager
-#   6. Camera intent check           -> isCameraApp
-#   7. Default
-# -------------------------
 classify_package() {
     pkg="$1"
 
-    # 1. User override — always wins, matches getStateForPackage()
     override=$(get_user_override "$pkg")
     if [ -n "$override" ]; then
         echo "$override"
         return
     fi
 
-    # 2. Special known packages
     case "$pkg" in
         "$GMAPS_PKG") echo "navigation"; return ;;
         "$GMEET_PKG") echo "streaming";  return ;;
     esac
 
-    # 3. ApplicationInfo.category (mirrors LineageOS category switch)
     dump=$(get_pkg_dump "$pkg")
     cat=$(echo "$dump" | grep -m1 'category=' | grep -o 'category=[0-9]*' | cut -d= -f2)
     case "$cat" in
@@ -336,21 +230,16 @@ classify_package() {
         "$CAT_MAPS")  echo "navigation"; return ;;
     esac
 
-    # --- EXTRAS below this line are not part of upstream ThermalUtils ---
 
-    # Benchmark list (checked before game signals — benchmarks often
-    # carry game-like signals and would otherwise misclassify as gaming)
     for b in $BENCHMARK_PKG; do
         [ "$pkg" = "$b" ] && echo "benchmark" && return
     done
 
-    # isGame flag / Play Games SDK
     if echo "$dump" | grep -q 'isGame=true' || \
        echo "$dump" | grep -q 'com.google.android.gms.games'; then
         echo "gaming"; return
     fi
 
-    # Manual game list + keywords (fallback for detection-evading games)
     for g in $GAMES_PKG; do
         [ "$pkg" = "$g" ] && echo "gaming" && return
     done
@@ -358,30 +247,21 @@ classify_package() {
         echo "$pkg" | grep -qi "$g" && echo "gaming" && return
     done
 
-    # --- back to upstream order ---
-
-    # 4. Browser — mirrors AppUtils.isBrowserApp
     if is_browser_app "$pkg"; then
         echo "browser"; return
     fi
 
-    # 5. Default dialer — mirrors DefaultDialerManager.getDefaultDialerApplication
     if is_dialer_app "$pkg"; then
         echo "dialer"; return
     fi
 
-    # 6. Camera — mirrors ThermalUtils.isCameraApp (STILL_IMAGE_CAMERA intent)
     if is_camera_app "$pkg"; then
         echo "camera"; return
     fi
 
-    # 7. Default
     echo "default"
 }
 
-# -------------------------
-# APPLY HELPERS
-# -------------------------
 apply_profile() {
     echo "$1" > "$THERMAL_SCONFIG"
     CURRENT_VALUE="$1"
@@ -420,9 +300,6 @@ apply_for_profile() {
     esac
 }
 
-# -------------------------
-# STATE
-# -------------------------
 ACTIVE_PKG=""
 ACTIVE_PROF="default"
 CURRENT_VALUE=0
@@ -431,20 +308,8 @@ SCREEN_ON=1
 apply_default
 echo "[THERMAL] Initial default applied"
 
-# -------------------------
-# MAIN LOOP
-#
-# Upstream is event-driven (TaskStackListener fires only on real focus
-# changes; ACTION_SCREEN_ON/OFF re-applies the *same* mCurrentApp's
-# profile rather than re-detecting it). Without a binder-level task
-# listener available from shell, this still has to poll — but the screen
-# on/off transition no longer wipes ACTIVE_PKG/CACHE_PKG, since upstream
-# never forgets the current app on screen events, only re-applies its
-# profile.
-# -------------------------
 while true; do
 
-    # ---------- SCREEN OFF ----------
     if ! is_screen_on; then
         if [ "$SCREEN_ON" = "1" ]; then
             SCREEN_ON=0
@@ -455,14 +320,12 @@ while true; do
         continue
     fi
 
-    # ---------- SCREEN ON (transition) ----------
     if [ "$SCREEN_ON" = "0" ]; then
         SCREEN_ON=1
         echo "[THERMAL] Screen ON → restoring: $ACTIVE_PKG ($ACTIVE_PROF)"
         apply_for_profile "$ACTIVE_PROF"
     fi
 
-    # ---------- FOREGROUND APP ----------
     FG_PKG=$(get_foreground_pkg)
 
     [ -z "$FG_PKG" ] && sleep 1 && continue
@@ -471,7 +334,6 @@ while true; do
 
     [ "$FG_PKG" = "$ACTIVE_PKG" ] && sleep 1 && continue
 
-    # New app — clear cache and classify
     CACHE_PKG=""
     PROFILE=$(classify_package "$FG_PKG")
     echo "[THERMAL] Foreground: $FG_PKG → $PROFILE (was: $ACTIVE_PKG -> $ACTIVE_PROF)"
