@@ -2,7 +2,7 @@
 
 # T-Engine For Snapdragon® 7s Gen 2
 
-**By Zero two**
+**By ZetyaWyn**
 
 ---
 

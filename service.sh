@@ -10,16 +10,17 @@ done
 sleep 5
 echo "[THERMAL] Boot completed"
 
-MODDIR=${0%/*}
 THERMAL_SCONFIG="/sys/class/thermal/thermal_message/sconfig"
-PREFS_XML="/data/system/thermal_control.xml"
-PREF_KEY="thermal_control"
+
+PKG_NAME="org.lineageos.settings"
+PREFS_XML="/data/data/${PKG_NAME}/shared_prefs/${PKG_NAME}_preferences.xml"
+PREF_KEY="thermal_control_v2"
 
 for i in $(seq 1 30); do
     [ -e "$THERMAL_SCONFIG" ] && break
     sleep 1
 done
-[ ! -e "$THERMAL_SCONFIG" ] && exit 0
+[ ! -e "$THERMAL_SCONFIG" ] && { echo "[THERMAL] sysfs node missing, exiting"; exit 0; }
 
 echo "[THERMAL] Thermal sysfs ready"
 
@@ -33,9 +34,9 @@ VAL_NAVIGATION=19
 VAL_STREAMING=14
 VAL_VIDEO=21
 
-CAT_GAME=1
-CAT_VIDEO=3
-CAT_MAPS=7
+CAT_GAME=0
+CAT_VIDEO=2
+CAT_MAPS=6
 
 GMAPS_PKG="com.google.android.apps.maps"
 GMEET_PKG="com.google.android.apps.tachyon"
@@ -143,9 +144,15 @@ is_screen_on() {
 }
 
 get_foreground_pkg() {
-    pkg=$(cmd activity stack list 2>/dev/null \
-        | grep -m1 'visible=true.*topActivity' \
-        | sed -n 's/.*topActivity=\([^\/} ]*\)\/.*/\1/p')
+    pkg=$(dumpsys activity activities 2>/dev/null \
+        | grep -m1 'topResumedActivity' \
+        | sed -n 's/.* \([A-Za-z0-9_.]*\)\/[^ ]* .*/\1/p')
+
+    if [ -z "$pkg" ]; then
+        pkg=$(cmd activity stack list 2>/dev/null \
+            | grep -m1 'visible=true.*topActivity' \
+            | sed -n 's/.*topActivity=\([^\/} ]*\)\/.*/\1/p')
+    fi
 
     if [ -z "$pkg" ]; then
         pkg=$(dumpsys window 2>/dev/null | grep -E "mCurrentFocus|mFocusedApp" \
@@ -158,8 +165,8 @@ get_user_override() {
     pkg="$1"
     [ -e "$PREFS_XML" ] || return 1
 
-    raw=$(grep -o "<string name=\"$PREF_KEY\">[^<]*" "$PREFS_XML" 2>/dev/null \
-        | sed "s/.*\">//")
+    raw=$(grep -o "name=\"$PREF_KEY\">[^<]*" "$PREFS_XML" 2>/dev/null \
+        | sed 's/.*">//')
     [ -z "$raw" ] && return 1
 
     raw=$(echo "$raw" | sed 's/&amp;/\&/g')
@@ -223,22 +230,16 @@ classify_package() {
     esac
 
     dump=$(get_pkg_dump "$pkg")
-    cat=$(echo "$dump" | grep -m1 'category=' | grep -o 'category=[0-9]*' | cut -d= -f2)
+    cat=$(echo "$dump" | grep -m1 'category=' | grep -o 'category=[0-9-]*' | cut -d= -f2)
     case "$cat" in
         "$CAT_GAME")  echo "gaming";     return ;;
         "$CAT_VIDEO") echo "video";      return ;;
         "$CAT_MAPS")  echo "navigation"; return ;;
     esac
 
-
     for b in $BENCHMARK_PKG; do
         [ "$pkg" = "$b" ] && echo "benchmark" && return
     done
-
-    if echo "$dump" | grep -q 'isGame=true' || \
-       echo "$dump" | grep -q 'com.google.android.gms.games'; then
-        echo "gaming"; return
-    fi
 
     for g in $GAMES_PKG; do
         [ "$pkg" = "$g" ] && echo "gaming" && return
@@ -273,30 +274,22 @@ apply_benchmark()  { apply_profile "$VAL_BENCHMARK"  "benchmark"; }
 apply_browser()    { apply_profile "$VAL_BROWSER"    "browser"; }
 apply_camera()     { apply_profile "$VAL_CAMERA"     "camera"; }
 apply_dialer()     { apply_profile "$VAL_DIALER"     "dialer"; }
+apply_gaming()     { apply_profile "$VAL_GAMING"     "gaming"; }
 apply_navigation() { apply_profile "$VAL_NAVIGATION" "navigation"; }
 apply_streaming()  { apply_profile "$VAL_STREAMING"  "streaming"; }
 apply_video()      { apply_profile "$VAL_VIDEO"      "video"; }
 
-apply_gaming_enter() {
-    for i in 1 2 3 4 5; do
-        echo "$VAL_GAMING" > "$THERMAL_SCONFIG"
-        usleep 200000
-    done
-    CURRENT_VALUE="$VAL_GAMING"
-    echo "[THERMAL] Set gaming enter = $VAL_GAMING"
-}
-
 apply_for_profile() {
     case "$1" in
-        gaming)     apply_gaming_enter ;;
-        benchmark)  apply_benchmark    ;;
-        browser)    apply_browser      ;;
-        camera)     apply_camera       ;;
-        dialer)     apply_dialer       ;;
-        navigation) apply_navigation   ;;
-        streaming)  apply_streaming    ;;
-        video)      apply_video        ;;
-        *)          apply_default      ;;
+        gaming)     apply_gaming     ;;
+        benchmark)  apply_benchmark  ;;
+        browser)    apply_browser    ;;
+        camera)     apply_camera     ;;
+        dialer)     apply_dialer     ;;
+        navigation) apply_navigation ;;
+        streaming)  apply_streaming  ;;
+        video)      apply_video      ;;
+        *)          apply_default    ;;
     esac
 }
 
@@ -313,7 +306,7 @@ while true; do
     if ! is_screen_on; then
         if [ "$SCREEN_ON" = "1" ]; then
             SCREEN_ON=0
-            echo "[THERMAL] Screen OFF → default"
+            echo "[THERMAL] Screen OFF -> default"
             apply_default
         fi
         sleep 2
@@ -322,7 +315,7 @@ while true; do
 
     if [ "$SCREEN_ON" = "0" ]; then
         SCREEN_ON=1
-        echo "[THERMAL] Screen ON → restoring: $ACTIVE_PKG ($ACTIVE_PROF)"
+        echo "[THERMAL] Screen ON -> restoring: $ACTIVE_PKG ($ACTIVE_PROF)"
         apply_for_profile "$ACTIVE_PROF"
     fi
 
@@ -336,7 +329,7 @@ while true; do
 
     CACHE_PKG=""
     PROFILE=$(classify_package "$FG_PKG")
-    echo "[THERMAL] Foreground: $FG_PKG → $PROFILE (was: $ACTIVE_PKG -> $ACTIVE_PROF)"
+    echo "[THERMAL] Foreground: $FG_PKG -> $PROFILE (was: $ACTIVE_PKG -> $ACTIVE_PROF)"
 
     apply_for_profile "$PROFILE"
 
